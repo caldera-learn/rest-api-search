@@ -19,7 +19,7 @@
     ],
     "require": {},
     "scripts" : {
-        "tests" : "composer fixes && composer sniffs && composer lints && composer test",
+        "tests" : "composer fixes && composer sniffs && composer test",
         "test": "composer unit-tests",
         "unit-tests": "phpunit --testsuite=unit",
         "sniffs" : "phpcs --standard=PSR2 src/ && phpcs --standard=PSR2 tests/",
@@ -41,7 +41,7 @@
     "files": ["src/functions.php"],
     "extra": {
         "hooks": {
-            "pre-commit": "composer tests"
+            "pre-commit": "composer fixes && composer sniffs"
         }
     }
 
