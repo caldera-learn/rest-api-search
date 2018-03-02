@@ -10,9 +10,8 @@ namespace CalderaLearn\RestSearch;
  *
  * @package ExamplePlugin
  */
-class  ModifyQueryArgs
+class ModifyQueryArgs
 {
-
     use UsesPreparedPostTypes;
 
 
