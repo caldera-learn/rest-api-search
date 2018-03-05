@@ -12,9 +12,8 @@
 				<directory>./Tests/Unit</directory>
 			</testsuite>
 			<testsuite name="integration" suffix=".php">
-				<directory>./tests/integration</directory>
+				<directory>./Tests/Integration</directory>
 			</testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

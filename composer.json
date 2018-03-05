@@ -22,6 +22,7 @@
         "tests" : "composer fixes && composer sniffs && composer test",
         "test": "composer unit-tests",
         "unit-tests": "phpunit --testsuite=unit",
+        "phpunit-v": "phpunit --version",
         "sniffs" : "phpcs src/ && phpcs tests/",
         "fixes" : "php-cs-fixer fix src/ && php-cs-fixer fix tests/",
         "formatting": "phpcbf src/ && phpcbf tests/",

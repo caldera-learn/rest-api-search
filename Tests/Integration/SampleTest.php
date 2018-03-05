@@ -1,14 +1,14 @@
 <?php
-// phpcs:disable
 
-use PHPUnit\Framework\TestCase;
+namespace CalderaLearn\RestSearch\Tests\Integration;
+// phpcs:disable
 
 /**
  * Class SampleTest
  *
  * @package Rest_Api_Search
  */
-class SampleTest extends TestCase
+class SampleTest extends \WP_UnitTestCase
 {
 
 	/**

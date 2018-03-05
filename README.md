@@ -14,17 +14,31 @@ Requires git and Composer
 * `cd rest-api-search`
 * `composer install`
 
-### Run Tests
+### Tests
+
+#### Install
+* Install all tests besides integration tests
+   - They were installed automatically by Composer
+* Install Integration Tests
+    - Switch to bin
+    - `cd bin`
+    - Install tests (this SHOULD erase your database)
+    - `bash ./install-wp-tests local root root`
+    - This command assumes your database is called "local", and has a user "root" with this password of "root"
+
+#### Use
+Run these tests from the plugin's root directory, unless directed otherwise.
 * Run Tests and Code Sniffs
     - `composer test`
 * Run Unit Tests and Integration Tests
     - `composer tests`
 * Run Unit Tests
     - `composer unit-tests`
-* Run Integration Tests
-    - *@todo*
 * Fix all code formatting
     - `composer formatting`
+* Integration tests
+    * Run these tests from the `bin` directory
+    * `bash run-tests.sh`
 
 ## Recommend Next Steps
 * Abstract out all WordPress specific logic to methods that are required by an interface
