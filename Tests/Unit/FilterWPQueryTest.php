@@ -12,7 +12,7 @@ class FilterWPQueryTest extends TestCase
 	/**
 	 * Test that the getPosts method return an array
 	 *
-	 * @covers FilterWPQuery::getPosts()
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
 	 */
 	public function testGetPosts()
 	{
@@ -21,6 +21,28 @@ class FilterWPQueryTest extends TestCase
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));
 	}
+
+	/**
+	 * Test that the getPosts method return of WP_Posts
+	 *
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
+	 */
+	public function testGetPostsArePosts()
+	{
+		//Get the mock posts
+		$results = FilterWPQuery::getPosts();
+		$this->assertFalse( empty( $results ) );
+		//Make sure results are an array of WP_Posts
+		$looped = false;
+		foreach ($results as $result) {
+			$looped = true;
+			//Make sure all results are WP_Posts
+			$this->assertTrue(is_a($result, '\WP_Post'), get_class( $result ));
+		}
+		//Make sure loop ran
+		$this->assertTrue($looped);
+	}
+
 	/**
 	 * Test the result data is consistent
 	 *

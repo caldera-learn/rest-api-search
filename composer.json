@@ -32,14 +32,16 @@
     "autoload": {
         "psr-4": {
             "CalderaLearn\\RestSearch\\": "src"
-        }
+        },
+        "files": ["src/functions.php"]
+
     },
     "autoload-dev": {
         "psr-4": {
             "CalderaLearn\\RestSearch\\Tests\\": "tests/"
-        }
+        },
+        "files": ["Tests/Mock/WP_Post.php"]
     },
-    "files": ["src/functions.php"],
     "extra": {
         "hooks": {
             "pre-commit": "composer fixes && composer sniffs"

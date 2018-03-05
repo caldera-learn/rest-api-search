@@ -30,7 +30,7 @@ class FilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 		//Create 4 mock posts with different titles
 		$mockPosts = [];
 		for ($i = 0; $i <= 3; $i++) {
-			$mockPosts[$i] = (new WP_Post((new \stdClass())));
+			$mockPosts[$i] = (new \WP_Post((new \stdClass())));
 			$mockPosts[$i]->post_title = "Mock Post $i";
 		}
 		//Return a mock array of mock posts
