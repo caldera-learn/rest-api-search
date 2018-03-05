@@ -5,11 +5,11 @@ namespace CalderaLearn\RestSearch;
 /**
  * Class FilterWPQuery
  *
- * Changes WP_Query object
+ * Changes WP_Query object during REST API requests
  *
- * @package ExamplePlugin
+ * @package CalderaLearn\RestSearch
  */
-class FilterWPQuery
+class FilterWPQuery implements FiltersPreWPQuery
 {
 	/**
 	 * Demonstrates how to use a different way to set the posts that WP_Query returns
@@ -43,7 +43,7 @@ class FilterWPQuery
 	/** @inheritdoc */
 	public static function removeFilter()
 	{
-		remove_filter('posts_pre_query', [FilterWPQuery::class, 'posts_pre_query'], 10);
+		remove_filter('posts_pre_query', [__CLASS__, 'posts_pre_query'], 10);
 	}
 
 	/** @inheritdoc */

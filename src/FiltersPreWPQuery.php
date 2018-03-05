@@ -18,10 +18,9 @@ interface FiltersPreWPQuery
 	 * @uses "posts_pre_query"
 	 *
 	 * @param $postsOrNull
-	 * @param \WP_Query $query
 	 * @return \WP_Post[]
 	 */
-	public static function callback($postsOrNull, $query);
+	public static function callback($postsOrNull);
 
 	/**
 	 * Should this request be filtered?
