@@ -14,15 +14,15 @@ namespace CalderaLearn\RestSearch\Tests\Mock;
  */
 class WP_Post extends \stdClass
 {
-    /** @var string */
-    public $post_title;
+	/** @var string */
+	public $post_title;
 
-    /**
-     * WP_Post constructor.
-     * @param mixed $post Could be anything, not used
-     */
-    public function __construct($post)
-    {
-        //Don't do anything
-    }
+	/**
+	 * WP_Post constructor.
+	 * @param mixed $post Could be anything, not used
+	 */
+	public function __construct($post)
+	{
+		//Don't do anything
+	}
 }

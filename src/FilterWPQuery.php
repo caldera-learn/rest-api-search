@@ -11,7 +11,6 @@ namespace CalderaLearn\RestSearch;
  */
 class FilterWPQuery
 {
-	// phpcs:disable
 	/**
 	 * Demonstrates how to use a different way to set the posts that WP_Query returns
 	 *
