@@ -18,10 +18,9 @@ class FilterWPQuery
 	 * @uses "posts_pre_query"
 	 *
 	 * @param $postsOrNull
-	 * @param \WP_Query $query
 	 * @return \WP_Post[]
 	 */
-	public static function callback($postsOrNull, $query)
+	public static function callback($postsOrNull)
 	{
 		// phpcs:enable
 		//Only run during WordPress API requests
