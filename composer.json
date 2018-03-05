@@ -22,8 +22,9 @@
         "tests" : "composer fixes && composer sniffs && composer test",
         "test": "composer unit-tests",
         "unit-tests": "phpunit --testsuite=unit",
-        "sniffs" : "phpcs --standard=PSR2 src/ && phpcs --standard=PSR2 tests/",
+        "sniffs" : "phpcs src/ && phpcs tests/",
         "fixes" : "php-cs-fixer fix src/ && php-cs-fixer fix tests/",
+        "formatting": "phpcbf src/ && phpcbf tests/",
         "lints" : "parallel-lint ./src  --blame --exclude vendor && parallel-lint ./tests  --blame --exclude vendor",
         "post-install-cmd": "vendor/bin/cghooks add --ignore-lock",
         "post-update-cmd": "vendor/bin/cghooks update"

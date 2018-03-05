@@ -11,17 +11,17 @@ namespace CalderaLearn\RestSearch;
  */
 class PostType
 {
-    /**
-     * Post type slug
-     *
-     * @TODO Change this to your post type's slug
-     */
-    const SLUG = 'post';
+	/**
+	 * Post type slug
+	 *
+	 * @TODO Change this to your post type's slug
+	 */
+	const SLUG = 'post';
 
-    /**
-     * Post type rest_base
-     *
-     * @TODO Change this to your post type's rest_base
-     */
-    const RESTBASE = 'posts';
+	/**
+	 * Post type rest_base
+	 *
+	 * @TODO Change this to your post type's rest_base
+	 */
+	const RESTBASE = 'posts';
 }

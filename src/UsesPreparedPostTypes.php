@@ -11,19 +11,19 @@ namespace CalderaLearn\RestSearch;
  */
 trait UsesPreparedPostTypes
 {
-    /**
-     * Prepared post types
-     *
-     * @var PreparedPostTypes
-     */
-    protected $preparedPostTypes;
+	/**
+	 * Prepared post types
+	 *
+	 * @var PreparedPostTypes
+	 */
+	protected $preparedPostTypes;
 
-    /**
-     * UsesPreparedPostTypes constructor.
-     * @param PreparedPostTypes $preparedPostTypes
-     */
-    public function __construct(PreparedPostTypes $preparedPostTypes)
-    {
-        $this->preparedPostTypes = $preparedPostTypes;
-    }
+	/**
+	 * UsesPreparedPostTypes constructor.
+	 * @param PreparedPostTypes $preparedPostTypes
+	 */
+	public function __construct(PreparedPostTypes $preparedPostTypes)
+	{
+		$this->preparedPostTypes = $preparedPostTypes;
+	}
 }

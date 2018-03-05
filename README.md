@@ -23,6 +23,8 @@ Requires git and Composer
     - `composer unit-tests`
 * Run Integration Tests
     - *@todo*
+* Fix all code formatting
+    - `composer formatting`
 
 ## Recommend Next Steps
 * Abstract out all WordPress specific logic to methods that are required by an interface
