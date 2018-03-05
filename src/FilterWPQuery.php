@@ -21,7 +21,6 @@ class FilterWPQuery
 	 */
 	public static function callback($postsOrNull)
 	{
-		// phpcs:enable
 		//Only run during WordPress API requests
 		if (static::shouldFilter()) {
 			//Prevent recursions
