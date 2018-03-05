@@ -32,7 +32,7 @@ class FilterWPQueryTest extends TestCase
 		$expected = FilterWPQuery::getPosts();
 
 		//Get the results from the callback
-		$results  = FilterWPQuery::callback(null, null);
+		$results  = FilterWPQuery::callback(null);
 
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));
