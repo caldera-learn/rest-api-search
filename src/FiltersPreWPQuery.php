@@ -32,9 +32,23 @@ interface FiltersPreWPQuery
 	/**
 	 * Remove the filter using this callback
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public static function removeFilter();
+	public static function removeFilter() :bool;
+
+	/**
+	 * Add the filter, using this callback
+	 *
+	 * @return bool
+	 */
+	public static function addFilter() : bool;
+
+	/**
+	 * Get the priority for the filter
+	 *
+	 * @return int
+	 */
+	public static function getFilterPriority() : int;
 
 	/**
 	 * Create the array of posts to return

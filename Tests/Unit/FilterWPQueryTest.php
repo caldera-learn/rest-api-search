@@ -5,8 +5,26 @@ namespace CalderaLearn\RestSearch\Tests\Unit;
 
 use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
 
+/**
+ * Class FilterWPQueryTest
+ *
+ * Unit tests for class that modifies WP_Queryt
+ *
+ * @package CalderaLearn\RestSearch\Tests\Unit
+ */
 class FilterWPQueryTest extends TestCase
 {
+
+	/**
+	 * Test that the filter priority is 10
+	 *
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getFilterPriority()
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::$filterPriority
+	 */
+	public function testGetPriority()
+	{
+		$this->assertEquals(10, FilterWPQuery::getFilterPriority());
+	}
 
 	/**
 	 * Test that the getPosts method return an array
@@ -56,7 +74,7 @@ class FilterWPQueryTest extends TestCase
 	/**
 	 * Test the result data is consistent
 	 *
-	 * * @covers \CalderaLearn\RestSearch\FilterWPQuery::callback()
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::callback()
 	 */
 	public function testCallbackWithNull()
 	{

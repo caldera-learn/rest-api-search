@@ -19,9 +19,9 @@ class FilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 	}
 
 	/** @inheritdoc */
-	public static function removeFilter()
+	public static function removeFilter() : bool
 	{
-		return;
+		return true;
 	}
 
 	/** @inheritdoc */
