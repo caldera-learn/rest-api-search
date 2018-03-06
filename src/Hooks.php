@@ -12,17 +12,17 @@ namespace CalderaLearn\RestSearch;
  */
 class Hooks
 {
-    /**
-     * Add all hooks used by this plugin
-     */
+	/**
+	 * Add all hooks used by this plugin
+	 */
 	public function addHooks()
 	{
 		FilterWPQuery::addFilter();
 	}
 
-    /**
-     * Remove all hooks used by this plugin
-     */
+	/**
+	 * Remove all hooks used by this plugin
+	 */
 	public function removeHooks()
 	{
 		FilterWPQuery::removeFilter();
