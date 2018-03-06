@@ -1,10 +1,14 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-
+/**
+ * Class ExampleTest
+ *
+ * An example unit test
+ *
+ * @package CalderaLearn\RestSearch\Tests\Unit
+ */
 class ExampleTest extends TestCase
 {
 	/**
