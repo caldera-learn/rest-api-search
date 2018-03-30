@@ -42,7 +42,7 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
   # Create a production-like build
-  - composer install --prefer-dist -0
+  - composer install --prefer-dist --optimize-autoloader --no-progress
   # Install test environment using composer script
   - composer wp-install
 script:
