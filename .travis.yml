@@ -29,18 +29,18 @@ matrix:
       env: WP_VERSION=latest
     - php: 7.2
       env: WP_VERSION=trunk
-
-#Install Docker Compose
-before_install:
-  - docker-compose --version
+# Setup environment
 before_script:
   # Export composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
   # Create a production-like build
   - composer install --prefer-dist --optimize-autoloader --no-progress
-  # Install test environment using composer script
-  - composer wp-install
+# Run tests
 script:
+  # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
+  - composer unit-tests
+  # Install full test environment using composer script
+  - composer wp-install
   # Run All Tests and Code Sniffs and Fixes
   - composer tests
