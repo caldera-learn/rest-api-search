@@ -86,7 +86,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	}
 
 	/**
-	 * Test that the getPosts method return of WP_Posts
+	 * Test that the getPosts method returns an array of WP_Posts.
 	 *
 	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
 	 */
@@ -108,7 +108,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 
 
 	/**
-	 * Test that the getPosts does filter when it is explicitly set to
+	 * Test that the getPosts method does filter when it is explicitly set to so.
 	 *
 	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
 	 */

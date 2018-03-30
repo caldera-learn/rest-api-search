@@ -32,7 +32,7 @@ class RestRequestTest extends RestAPITestCase
 	 */
 	public function testFilteringRESTRequest()
 	{
-		//setup filter
+		//Setup filter
 		AlwaysFilterWPQuery::addFilter();
 		$this->assertTrue(AlwaysFilterWPQuery::shouldFilter());
 
@@ -45,12 +45,11 @@ class RestRequestTest extends RestAPITestCase
 		//Test response status
 		$this->assertSame(200, $response->get_status());
 
-		//Test the repsonse data
+		//Test the response data
 		//Use the mock data we have in our mock class as the expected values
 		$expected = FilterWPQuery::getPosts();
 
 		//Test that the expected results and the actual results are the same
-
 		$responseData = $response->get_data();
 		$this->assertTrue(is_array($responseData));
 		$this->assertSame(count($expected), count($responseData));
