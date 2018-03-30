@@ -16,31 +16,33 @@ Requires git and Composer
 * `cd rest-api-search`
 * `composer install`
 
-### Tests
+### Local Development Environment
+A  local development environment is included, and provided. It is used for integration tests. Requires Composer, Docker and Docker Compose.
+
+* Install Local Environment And WordPress "Unit" Test Suite
+- `composer wp-install`
+
+You should know have WordPress at http://localhost:8888/
+
+* (re)Start Server: Once server is installed, you can start it again
+- `composer wp-start`
+
+### Testing
 
 #### Install
-* Install all tests besides integration tests
-   - They were installed automatically by Composer
-* Install Integration Tests
-    - Switch to bin
-    - `cd bin`
-    - Install tests (this SHOULD erase your database)
-    - `bash ./install-wp-tests local root root`
-    - This command assumes your database is called "local", and has a user "root" with this password of "root"
+Follow the steps above to create local development environment, then you can use the commands listed in the next section.
 
 #### Use
-Run these tests from the plugin's root directory, unless directed otherwise.
-* Run Tests and Code Sniffs
-    - `composer test`
-* Run Unit Tests and Integration Tests
+Run these commands from the plugin's root directory.
+
+* Run All Tests and Code Sniffs and Fixes
     - `composer tests`
 * Run Unit Tests
     - `composer unit-tests`
-* Fix all code formatting
+* Run WordPress Integration Tests
+    - `composer wp-tests`
+* Fix All Code Formatting
     - `composer formatting`
-* Integration tests (also runs unit tests)
-    * Run these tests from the `bin` directory
-    * `bash run-tests.sh`
 
 ## Recommend Next Steps
 * Abstract out all WordPress specific logic to methods that are required by an interface

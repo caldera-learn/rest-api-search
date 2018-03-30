@@ -1,5 +1,5 @@
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	bootstrap="Tests/bootstrap-integration.php"
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -7,8 +7,8 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="unit" suffix=".php">
-			<directory>./Tests/Unit</directory>
-		</testsuite>
+			<testsuite name="integration" suffix=".php">
+				<directory>./Tests/Integration</directory>
+			</testsuite>
 	</testsuites>
 </phpunit>

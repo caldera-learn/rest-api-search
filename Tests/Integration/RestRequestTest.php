@@ -54,11 +54,9 @@ class RestRequestTest extends RestAPITestCase
 		$responseData = $response->get_data();
 		$this->assertTrue(is_array($responseData));
 		$this->assertSame(count($expected), count($responseData));
-
 		foreach ($responseData as $i => $responsePost) {
-			$responsePost = (object)$responsePost;
 			$this->assertTrue(isset($expected[$i]));
-			$this->assertSame($expected[$i]->post_title, $responsePost->title->rendered);
+			$this->assertSame($expected[$i]->post_title, $responsePost[ 'title' ][ 'rendered' ]);
 		}
 	}
 }

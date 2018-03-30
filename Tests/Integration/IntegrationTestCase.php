@@ -12,4 +12,6 @@ namespace CalderaLearn\RestSearch\Tests\Integration;
  */
 abstract class IntegrationTestCase extends \WP_UnitTestCase
 {
+
+
 }

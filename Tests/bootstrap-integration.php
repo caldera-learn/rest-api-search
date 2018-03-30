@@ -1,9 +1,7 @@
 <?php
 // phpcs:disable
 /**
- * PHPUnit bootstrap file
- *
- * @package Rest_Api_Search
+ * This is the bootstrap file for Integration Tests -- run with composer wp-tests
  */
 
 $_tests_dir = getenv('WP_TESTS_DIR');
