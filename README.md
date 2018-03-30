@@ -11,10 +11,23 @@ This plugin is not done. You should finish it to learn these concepts.
 ## Articles
 
 * [Part One: ADVANCED OOP FOR WORDPRESS: CUSTOMIZING REST API ENDPOINTS TO IMPROVE WORDPRESS SEARCH](https://torquemag.io/2018/03/advanced-oop-wordpress-customizing-rest-api-endpoints-improve-wordpress-search/)
-- The example code for part one is in [this gist](https://gist.github.com/Shelob9/ec02944421cbc57dbff3dbdfbdc3bf0d) and [this gist](https://gist.github.com/Shelob9/8f59a1ece87337a03f2ebffbc235e45e)
-* Part Two, next week...
-- [This Commit](https://github.com/caldera-learn/rest-api-search/tree/ecdce18d737f258b4cf9ab35f2cfd473fd57bbb1) is the plugin as of part two.
+    - The example code for part one is in [this gist](https://gist.github.com/Shelob9/ec02944421cbc57dbff3dbdfbdc3bf0d) and [this gist](https://gist.github.com/Shelob9/8f59a1ece87337a03f2ebffbc235e45e)
+* [Part Two]() 
+    - [This Commit](https://github.com/caldera-learn/rest-api-search/commit/c8e0a27f281b63b3c7e64c9ca598b06aa7a2c875) it the plugin as of part two.
+    - The code in this commit basically works to modify the REST API results, but we don't have tests to prove it.
+* [Part Three]()
+    - [This Commit](https://github.com/caldera-learn/rest-api-search/tree/ecdce18d737f258b4cf9ab35f2cfd473fd57bbb1) is the plugin as of part three.
+    - The code in this commit works to modify the REST API results, and creates as much test coverage we can get with isolated unit tests.
+* [Part Four]() 
+    - [This Commit](https://github.com/caldera-learn/rest-api-search/commit/0ce0ae8869779a580f738553123a10d5cd0b28ac) is the plugin as of part four.
+    - In this commit the Docker-based integration testing environment is added. The integration tests, which will be explained in part five are almost complete in this commit, but do not pass.
+* [Part Five]()
+    - [This Commit](https://github.com/caldera-learn/rest-api-search/commit/0ce0ae8869779a580f738553123a10d5cd0b28ac) is the plugin as of part five.
+    - The tests, that are explained in part five are complete in this commit, and do pass.
+
+
 ## Development
+
 
 ### Install
 Requires git and Composer
