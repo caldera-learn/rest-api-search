@@ -24,8 +24,8 @@
         "wp-start": "docker-compose up -d",
         "wp-tests": "docker-compose run --rm wordpress_phpunit phpunit --configuration phpunit-integration.xml.dist",
         "phpunit-v": "phpunit --version",
-        "sniffs" : "phpcs src/ && phpcs tests/",
-        "fixes" : "phpcbf src/ && phpcbf tests/",
+        "sniffs" : "phpcs src/ && phpcs Tests/",
+        "fixes" : "phpcbf src/ && phpcbf Tests/",
         "lints" : "parallel-lint ./src  --blame --exclude vendor && parallel-lint ./tests  --blame --exclude vendor"
     },
     "autoload-dev": {
