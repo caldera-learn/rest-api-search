@@ -3,6 +3,8 @@
 
 namespace CalderaLearn\RestSearch;
 
+use WP_Post_Type;
+
 /**
  * Class ModifySchema
  *
@@ -26,7 +28,7 @@ class ModifySchema
 	 * @uses ""rest_{$postType}_collection_params" action
 	 *
 	 * @param array $query_params JSON Schema-formatted collection parameters.
-	 * @param \WP_Post_Type $post_type Post type object.
+	 * @param WP_Post_Type $post_type Post type object.
 	 *
 	 * @return array
 	 */
@@ -57,10 +59,10 @@ class ModifySchema
 	/**
 	 * Check if this post type's schema should be filtered
 	 *
-	 * @param \WP_Post_Type $WP_Post_Type
+	 * @param WP_Post_Type $WP_Post_Type
 	 * @return bool
 	 */
-	public function shouldFilter(\WP_Post_Type $WP_Post_Type): bool
+	public function shouldFilter(WP_Post_Type $WP_Post_Type): bool
 	{
 		return PostType::SLUG === $WP_Post_Type->name;
 	}
