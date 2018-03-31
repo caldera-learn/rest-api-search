@@ -1,23 +1,31 @@
+# Give sudo to environment
 sudo: required
 
+# Make Docker available inside the container
 services:
   - docker
 
+# Use the PHP environment
 language: php
 
+# Don't send notifications via email, that's annoying
 notifications:
   email:
     on_success: never
     on_failure: never
 
+# Trigger only on master -- we'll add Github pull requests in settings
 branches:
   only:
     - master
+
+# Cache composer dependencies
 cache:
   directories:
     - vendor
     - $HOME/.composer/cache
 
+# Build these combinations of PHP and WordPress Versions
 matrix:
   include:
     - php: 7.2
@@ -26,12 +34,14 @@ matrix:
       env: WP_VERSION=latest
     - php: 7.2
       env: WP_VERSION=trunk
+
 # Setup environment
 before_script:
   # Export composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
   - composer install --no-progress
+
 # Run tests
 script:
   # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
