@@ -1,4 +1,7 @@
-sudo: false
+sudo: required
+
+services:
+  - docker
 
 language: php
 
@@ -10,10 +13,6 @@ notifications:
 branches:
   only:
     - master
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
-
 cache:
   directories:
     - vendor
