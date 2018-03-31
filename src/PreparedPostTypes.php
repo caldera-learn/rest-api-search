@@ -86,10 +86,6 @@ class PreparedPostTypes
 	 */
 	public function has(string $restBase) : bool
 	{
-		if (empty($this->restBases)) {
-			return false;
-		}
-
-		return in_array($restBase, $this->restBases, true);
+		return isset($this->postTypes[$restBase]);
 	}
 }
