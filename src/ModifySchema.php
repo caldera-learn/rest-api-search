@@ -32,21 +32,24 @@ class ModifySchema
 	 */
 	public function filterSchema($query_params, $post_type)
 	{
-		if ($this->shouldFilter($post_type)) {
-			$query_params[self::ARGNAME] = [
-				[
-					'default' => PostType::RESTBASE,
-					'description' => __('Post type(s) for search query'),
-					'type' => 'array',
-					//Limit to public post types and allow query by rest base
-					'items' =>
-						[
-							'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
-							'type' => 'string',
-						],
-				]
-			];
+		// Bail out if the given post type should not be filtered.
+		if (!$this->shouldFilter($post_type)) {
+			return $query_params;
 		}
+
+		$query_params[self::ARGNAME] = [
+			[
+				'default' => PostType::RESTBASE,
+				'description' => __('Post type(s) for search query'),
+				'type' => 'array',
+				//Limit to public post types and allow query by rest base
+				'items' =>
+					[
+						'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
+						'type' => 'string',
+					],
+			]
+		];
 
 		return $query_params;
 	}
