@@ -52,3 +52,7 @@ script:
   - composer wp-install
   # Run integration tests
   - composer wp-tests
+# IF tests passed run coverage and sniffs
+after_script:
+  # Coverage report
+  - composer coverage

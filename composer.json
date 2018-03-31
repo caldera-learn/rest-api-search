@@ -27,7 +27,8 @@
         "phpunit-v": "phpunit --version",
         "sniffs" : "phpcs src/ && phpcs Tests/",
         "fixes" : "phpcbf src/ && phpcbf Tests/",
-        "lints" : "parallel-lint ./src  --blame --exclude vendor && parallel-lint ./tests  --blame --exclude vendor"
+        "lints" : "parallel-lint ./src  --blame --exclude vendor && parallel-lint ./tests  --blame --exclude vendor",
+        "coverage" : "atoum ./atoum.php"
     },
     "autoload-dev": {
         "psr-4": {

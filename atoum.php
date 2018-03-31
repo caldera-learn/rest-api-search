@@ -5,8 +5,9 @@ use mageekguy\atoum\reports;
 
 $coveralls = new reports\asynchronous\coveralls(
 	'src',
-	getenv('COVERALLS') ? getenv( 'COVERALLS') : ''
+	getenv('COVERALLS') ? getenv( 'COVERALLS' ) : ''
 );
+
 $defaultFinder = $coveralls->getBranchFinder();
 $coveralls
 	->setBranchFinder(function() use ($defaultFinder) {
@@ -21,6 +22,7 @@ $coveralls
 	->setServiceJobId(getenv('TRAVIS_JOB_ID') ?: null)
 	->addWriter()
 ;
+
 $runner->addReport($coveralls);
 
 $script->addDefaultReport();
