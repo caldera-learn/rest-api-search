@@ -61,8 +61,9 @@ class ModifyQueryArgs
 	{
 		$postTypeSlugs = [];
 		foreach ($postTypes as $postTypeRestBase) {
-			if ($this->preparedPostTypes->restBaseToSlug($postTypeRestBase)) {
-				$postTypeSlugs[] = $this->preparedPostTypes->restBaseToSlug($postTypeRestBase);
+			$newSlug = $this->preparedPostTypes->restBaseToSlug($postTypeRestBase);
+			if ($newSlug) {
+				$postTypeSlugs[] = $newSlug;
 			}
 		}
 
