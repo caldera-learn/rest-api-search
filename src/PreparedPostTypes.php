@@ -19,12 +19,20 @@ class PreparedPostTypes
 	protected $postTypes;
 
 	/**
+	 * An array of "rest_base" values for prepared post types.
+	 *
+	 * @var array
+	 */
+	protected $restBases;
+
+	/**
 	 * PreparedPostTypes constructor.
 	 * @param array $postTypes Array of post type objects `get_post_types([], 'objects')`
 	 */
 	public function __construct(array $postTypes)
 	{
 		$this->setPostTypes($postTypes);
+		$this->restBases = !empty($this->postTypes) ? array_keys($this->postTypes) : [];
 	}
 
 
@@ -35,7 +43,7 @@ class PreparedPostTypes
 	 */
 	public function getPostTypeRestBases(): array
 	{
-		return !empty($this->postTypes) ? array_keys($this->postTypes) : [];
+		return $this->restBases;
 	}
 
 	/**
@@ -62,7 +70,7 @@ class PreparedPostTypes
 	 */
 	public function restBaseToSlug(string $restBase)
 	{
-		if (in_array($restBase, $this->getPostTypeRestBases())) {
+		if (in_array($restBase, $this->restBases)) {
 			return $this->postTypes[$restBase];
 		}
 
