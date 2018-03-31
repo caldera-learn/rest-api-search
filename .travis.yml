@@ -42,7 +42,10 @@ before_script:
   # Install plugin with composer
   - composer install --no-progress
   # Export variables to other containers
-  - docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" -e WP_VERSION="WP_VERSION"
+  - docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID"
+  - docker exec -e TRAVIS_BRANCH="$TRAVIS_BRANCH"
+  - docker exec -e WP_VERSION="$WP_VERSION"
+  - docker exec -e COVERALLS="$COVERALLS"
 
 # Run tests
 script:
