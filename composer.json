@@ -9,13 +9,14 @@
             "email": "josh@calderawp.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.1"
+    },
     "autoload": {
         "psr-4": {
             "CalderaLearn\\RestSearch\\": "src"
         },
         "files": ["src/functions.php"]
-
     },
     "scripts" : {
         "tests" : "composer fixes && composer sniffs && composer unit-tests && composer wp-tests",
@@ -30,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CalderaLearn\\RestSearch\\Tests\\": "tests/"
+            "CalderaLearn\\RestSearch\\Tests\\": "Tests/"
         },
         "files": ["Tests/Mock/WP_Post.php"]
     },
@@ -39,11 +40,6 @@
         "phpunit/phpunit": "^7.0",
         "squizlabs/php_codesniffer": "^3.2",
         "jakub-onderka/php-parallel-lint": "^1.0"
-    },
-    "extra": {
-        "hooks": {
-            "pre-commit": "composer fixes && composer sniffs"
-        }
     }
 
 }

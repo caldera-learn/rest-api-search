@@ -32,8 +32,7 @@ before_script:
   # Export composer
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
-  # Create a production-like build
-  - composer install --prefer-dist --optimize-autoloader --no-progress
+  - composer install --no-progress
 # Run tests
 script:
   # Run just unit tests first -- if they fail we never spend the time building the environment for integration tests
