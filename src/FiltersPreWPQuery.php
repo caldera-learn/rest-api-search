@@ -3,6 +3,8 @@
 
 namespace CalderaLearn\RestSearch;
 
+use WP_Post;
+
 /**
  * Interface FiltersPreWPQuery
  *
@@ -17,8 +19,9 @@ interface FiltersPreWPQuery
 	 *
 	 * @uses "posts_pre_query"
 	 *
-	 * @param $postsOrNull
-	 * @return \WP_Post[]
+	 * @param array|null $postsOrNull   Return an array of post data to short-circuit WP's query,
+	 *                                  or null to allow WP to run its normal queries.
+	 * @return WP_Post[]
 	 */
 	public static function callback($postsOrNull);
 
@@ -53,7 +56,7 @@ interface FiltersPreWPQuery
 	/**
 	 * Create the array of posts to return
 	 *
-	 * @return \WP_Post[]
+	 * @return WP_Post[]
 	 */
 	public static function getPosts() :array;
 }
