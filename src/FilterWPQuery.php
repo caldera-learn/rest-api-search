@@ -28,17 +28,18 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 */
 	public static function callback($postsOrNull)
 	{
-		//Only run during WordPress API requests
-		if (static::shouldFilter()) {
-			//Prevent recursions
-			//Don't run if posts are already sent
-			if (is_null($postsOrNull)) {
-				//Get mock data
-				$postsOrNull = static::getPosts();
-			}
+		// Bail out if not running during WordPress API requests.
+		if (!static::shouldFilter()) {
+			return $postsOrNull;
 		}
-		//Always return something, even if its unchanged
-		return $postsOrNull;
+
+		// Bail out if the posts were already sent out. Prevents recursions.
+		if (!is_null($postsOrNull)) {
+			return $postsOrNull;
+		}
+
+		// Get and then return the mock data.
+		return static::getPosts();
 	}
 
 	/** @inheritdoc */
