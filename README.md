@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/caldera-learn/rest-api-search.svg?branch=master)](https://travis-ci.org/caldera-learn/rest-api-search)
+
 Example code for a series of Torque article showing how to modify REST API requests to content routes to improve search, using an object-oriented approach.
 
 **This Plugin Is For Educational Purposes _This Plugin Does Not Work_** See the "Recommend Next Steps" section below for recommendations on what to do to finish this plugin.
