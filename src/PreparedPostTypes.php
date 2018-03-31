@@ -70,10 +70,26 @@ class PreparedPostTypes
 	 */
 	public function restBaseToSlug(string $restBase)
 	{
-		if (in_array($restBase, $this->restBases)) {
+		if ($this->has($restBase)) {
 			return $this->postTypes[$restBase];
 		}
 
 		return null;
+	}
+
+	/**
+	 * Checks if the given rest_base exists for the prepared post types.
+	 *
+	 * @param string $restBase
+	 *
+	 * @return bool
+	 */
+	public function has(string $restBase) : bool
+	{
+		if (empty($this->restBases)) {
+			return false;
+		}
+
+		return in_array($restBase, $this->restBases, true);
 	}
 }
