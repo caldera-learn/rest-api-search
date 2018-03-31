@@ -41,11 +41,6 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
   - composer install --no-progress
-  # Export variables to other containers
-  - docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID"
-  - docker exec -e TRAVIS_BRANCH="$TRAVIS_BRANCH"
-  - docker exec -e WP_VERSION="$WP_VERSION"
-  - docker exec -e COVERALLS="$COVERALLS"
 
 # Run tests
 script:
@@ -56,6 +51,8 @@ script:
   # Run integration tests
   - composer wp-tests
 # IF tests passed run coverage and sniffs
-after_success:
-  # Coverage report
-  - composer coverage
+after_sucess:
+  # Run coverage
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  # Report to codecov
+  - bash <(curl -s https://codecov.io/bash) CODECOV_KEY
