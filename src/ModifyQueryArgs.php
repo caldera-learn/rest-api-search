@@ -48,11 +48,7 @@ class ModifyQueryArgs
 			return false;
 		}
 
-		if ($request->get_param(ModifySchema::ARGNAME)) {
-			return true;
-		}
-
-		return false;
+		return $request->get_param(ModifySchema::ARGNAME);
 	}
 
 	/**
