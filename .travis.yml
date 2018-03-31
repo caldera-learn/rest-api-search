@@ -41,6 +41,8 @@ before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # Install plugin with composer
   - composer install --no-progress
+  # Export variables to other containers
+  docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" -e WP_VERSION="WP_VERSION"
 
 # Run tests
 script:
