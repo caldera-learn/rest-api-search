@@ -25,10 +25,13 @@ class ModifyQueryArgs
 	 */
 	public function filterQueryArgs($args, $request)
 	{
-		if ($this->shouldFilter($request)) {
-			add_filter('posts_pre_query', [FilterWPQuery::class, 'posts_pre_query'], 10, 2);
-			$args['post_type'] = $this->restBasesToPostTypeSlugs($request[ModifySchema::ARGNAME]);
+		if (!$this->shouldFilter($request)) {
+			return $args;
 		}
+
+		add_filter('posts_pre_query', [FilterWPQuery::class, 'posts_pre_query'], 10, 2);
+		$args['post_type'] = $this->restBasesToPostTypeSlugs($request[ModifySchema::ARGNAME]);
+
 		return $args;
 	}
 
@@ -41,13 +44,11 @@ class ModifyQueryArgs
 	public function shouldFilter(\WP_REST_Request $request): bool
 	{
 		$attributes = $request->get_attributes();
-		if (isset($attributes['args'][ModifySchema::ARGNAME])) {
-			if ($request->get_param(ModifySchema::ARGNAME)) {
-				return true;
-			}
+		if (!isset($attributes['args'][ModifySchema::ARGNAME])) {
+			return false;
 		}
 
-		return false;
+		return $request->get_param(ModifySchema::ARGNAME);
 	}
 
 	/**
@@ -60,8 +61,9 @@ class ModifyQueryArgs
 	{
 		$postTypeSlugs = [];
 		foreach ($postTypes as $postTypeRestBase) {
-			if ($this->preparedPostTypes->restBaseToSlug($postTypeRestBase)) {
-				$postTypeSlugs[] = $this->preparedPostTypes->restBaseToSlug($postTypeRestBase);
+			$newSlug = $this->preparedPostTypes->restBaseToSlug($postTypeRestBase);
+			if (!empty($newSlug)) {
+				$postTypeSlugs[] = $newSlug;
 			}
 		}
 

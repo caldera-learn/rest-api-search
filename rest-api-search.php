@@ -20,7 +20,6 @@ include_once __DIR__ .'/vendor/autoload.php';
  */
 if( function_exists( 'init' ) ){
     add_action( 'init', function(){
-        $hooks = new \CalderaLearn\RestSearch\Hooks();
-        $hooks->addHooks();
+	    ( new \CalderaLearn\RestSearch\Hooks() )->addHooks();
     });
 }

@@ -3,6 +3,8 @@
 
 namespace CalderaLearn\RestSearch;
 
+use WP_Post_Type;
+
 /**
  * Class ModifySchema
  *
@@ -26,27 +28,30 @@ class ModifySchema
 	 * @uses ""rest_{$postType}_collection_params" action
 	 *
 	 * @param array $query_params JSON Schema-formatted collection parameters.
-	 * @param \WP_Post_Type $post_type Post type object.
+	 * @param WP_Post_Type $post_type Post type object.
 	 *
 	 * @return array
 	 */
 	public function filterSchema($query_params, $post_type)
 	{
-		if ($this->shouldFilter($post_type)) {
-			$query_params[self::ARGNAME] = [
-				[
-					'default' => PostType::RESTBASE,
-					'description' => __('Post type(s) for search query'),
-					'type' => 'array',
-					//Limit to public post types and allow query by rest base
-					'items' =>
-						[
-							'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
-							'type' => 'string',
-						],
-				]
-			];
+		// Bail out if the given post type should not be filtered.
+		if (!$this->shouldFilter($post_type)) {
+			return $query_params;
 		}
+
+		$query_params[self::ARGNAME] = [
+			[
+				'default' => PostType::RESTBASE,
+				'description' => __('Post type(s) for search query'),
+				'type' => 'array',
+				//Limit to public post types and allow query by rest base
+				'items' =>
+					[
+						'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
+						'type' => 'string',
+					],
+			]
+		];
 
 		return $query_params;
 	}
@@ -54,10 +59,10 @@ class ModifySchema
 	/**
 	 * Check if this post type's schema should be filtered
 	 *
-	 * @param \WP_Post_Type $WP_Post_Type
+	 * @param WP_Post_Type $WP_Post_Type
 	 * @return bool
 	 */
-	public function shouldFilter(\WP_Post_Type $WP_Post_Type): bool
+	public function shouldFilter(WP_Post_Type $WP_Post_Type): bool
 	{
 		return PostType::SLUG === $WP_Post_Type->name;
 	}
