@@ -11,23 +11,25 @@ namespace CalderaLearn\RestSearch;
  */
 class FilterWPQuery implements FiltersPreWPQuery
 {
-
 	/**
-	 * Priority for filter
+	 * Priority for the 'posts_pre_query' filter.
 	 *
 	 * @var int
 	 */
 	protected static $filterPriority = 10;
 
 	/**
-	 * Demonstrates how to use a different way to set the posts that WP_Query returns
+	 * Filters the results of WP_Query objects.
+	 *
+	 * This callback demonstrates how to use a different way to set the posts that WP_Query returns.
 	 *
 	 * @uses "posts_pre_query"
 	 *
 	 * @param array|null $postsOrNull Array of posts.
+	 *
 	 * @return array Returns an array of WP_Post objects.
 	 */
-	public static function callback($postsOrNull)
+	public static function filterPreQuery($postsOrNull)
 	{
 		if ( ! static::shouldFilter($postsOrNull)) {
 			return $postsOrNull;
@@ -63,13 +65,13 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function addFilter() : bool
 	{
-		return add_filter('posts_pre_query', [FilterWPQuery::class, 'callback'], 10);
+		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], 10);
 	}
 
 	/** @inheritdoc */
 	public static function removeFilter() : bool
 	{
-		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'callback'], 10);
+		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], 10);
 	}
 
 	/** @inheritdoc */

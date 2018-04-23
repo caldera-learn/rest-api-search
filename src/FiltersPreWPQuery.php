@@ -13,14 +13,14 @@ namespace CalderaLearn\RestSearch;
 interface FiltersPreWPQuery
 {
 	/**
-	 * Change the results of WP_Query objects
+	 * Filters the results of WP_Query objects.
 	 *
 	 * @uses "posts_pre_query"
 	 *
 	 * @param array|null $postsOrNull Array of posts.
 	 * @return array Returns an array of WP_Post objects.
 	 */
-	public static function callback($postsOrNull);
+	public static function filterPreQuery($postsOrNull);
 
 	/**
 	 * Checks if the request should be filtered or not.
