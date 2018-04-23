@@ -35,11 +35,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 			return $postsOrNull;
 		}
 
-		//Get mock data
-		$postsOrNull = static::getPosts();
-
-		//Always return something, even if its unchanged
-		return $postsOrNull;
+		return static::getPosts();
 	}
 
 	/** @inheritdoc */
