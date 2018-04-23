@@ -17,11 +17,11 @@ class PostGenerator
 	public static function generate( $quantity ): array
 	{
 		$mockPosts = [];
-		for ($i = 0; $i <= $quantity; $i++) {
+		for ($postNumber = 0; $postNumber <= $quantity; $postNumber++) {
 			$post             = new WP_Post( new stdClass() );
-			$post->post_title = "Mock Post $i";
+			$post->post_title = "Mock Post $postNumber";
 			$post->filter     = 'raw';
-			$mockPosts[ $i ]  = $post;
+			$mockPosts[ $postNumber ]  = $post;
 		}
 
 		return $mockPosts;
