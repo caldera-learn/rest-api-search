@@ -18,7 +18,7 @@ class PostGenerator {
 	{
 		$mockPosts = [];
 		for ($i = 0; $i <= $quantity; $i++) {
-			$post = new \WP_Post((new \stdClass()));
+			$post = new WP_Post(new stdClass());
 			$post->post_title = "Mock Post $i";
 			$post->filter = 'raw';
 			$mockPosts[$i] = $post;
