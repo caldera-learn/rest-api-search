@@ -25,7 +25,7 @@ interface FiltersPreWPQuery
 	/**
 	 * Checks if the request should be filtered or not.
 	 *
-	 * @param array|null $postsOrNull Array of posts.
+	 * @param array|null $postsOrNull Array of WP_Posts or null.
 	 * @return bool
 	 */
 	public static function shouldFilter($postsOrNull) :bool;
