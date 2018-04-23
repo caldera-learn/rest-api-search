@@ -17,17 +17,18 @@ interface FiltersPreWPQuery
 	 *
 	 * @uses "posts_pre_query"
 	 *
-	 * @param $postsOrNull
-	 * @return \WP_Post[]
+	 * @param array|null $postsOrNull Array of posts.
+	 * @return array Returns an array of WP_Post objects.
 	 */
 	public static function callback($postsOrNull);
 
 	/**
-	 * Should this request be filtered?
+	 * Checks if the request should be filtered or not.
 	 *
+	 * @param array|null $postsOrNull Array of posts.
 	 * @return bool
 	 */
-	public static function shouldFilter() :bool;
+	public static function shouldFilter($postsOrNull) :bool;
 
 	/**
 	 * Remove the filter using this callback

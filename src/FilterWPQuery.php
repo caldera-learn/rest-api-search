@@ -18,31 +18,44 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 * @var int
 	 */
 	protected static $filterPriority = 10;
+
 	/**
 	 * Demonstrates how to use a different way to set the posts that WP_Query returns
 	 *
 	 * @uses "posts_pre_query"
 	 *
-	 * @param $postsOrNull
-	 * @return \WP_Post[]
+	 * @param array|null $postsOrNull Array of posts.
+	 * @return array Returns an array of WP_Post objects.
 	 */
 	public static function callback($postsOrNull)
 	{
-		//Only run during WordPress API requests
-		if (static::shouldFilter()) {
-			//Prevent recursions
-			//Don't run if posts are already sent
-			if (is_null($postsOrNull)) {
-				//Get mock data
-				$postsOrNull = static::getPosts();
-			}
+		if ( ! static::shouldFilter($postsOrNull)) {
+			return $postsOrNull;
 		}
+
+		//Get mock data
+		$postsOrNull = static::getPosts();
+
 		//Always return something, even if its unchanged
 		return $postsOrNull;
 	}
 
 	/** @inheritdoc */
-	public static function shouldFilter() :bool
+	public static function shouldFilter($postsOrNull) :bool
+	{
+		if ( ! is_null($postsOrNull)) {
+			return false;
+		}
+
+		return static::doingREST();
+	}
+
+	/**
+	 * Checks if WordPress is doing a REST request.
+	 *
+	 * @return bool
+	 */
+	private static function doingREST() :bool
 	{
 		return did_action('rest_api_init');
 	}
@@ -64,7 +77,6 @@ class FilterWPQuery implements FiltersPreWPQuery
 	{
 		return static::$filterPriority;
 	}
-
 
 	/** @inheritdoc */
 	public static function getPosts() : array
