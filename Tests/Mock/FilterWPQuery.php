@@ -1,7 +1,9 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Mock;
+
+use stdClass;
+use WP_Post;
 
 /**
  * Class FilterWPQuery
@@ -13,9 +15,9 @@ namespace CalderaLearn\RestSearch\Tests\Mock;
 class FilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 {
 	/** @inheritdoc */
-	public static function shouldFilter() :bool
+	public static function shouldFilter($postsOrNull) : bool
 	{
-		return true;
+		return is_null($postsOrNull);
 	}
 
 	/** @inheritdoc */
@@ -27,13 +29,14 @@ class FilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 	/** @inheritdoc */
 	public static function getPosts() : array
 	{
-		//Create 4 mock posts with different titles
 		$mockPosts = [];
-		for ($i = 0; $i <= 3; $i++) {
-			$mockPosts[$i] = (new \WP_Post((new \stdClass())));
-			$mockPosts[$i]->post_title = "Mock Post $i";
+		for ($postNumber = 0; $postNumber <= 4; $postNumber++) {
+			$post             = new WP_Post( new stdClass() );
+			$post->post_title = "Mock Post {$postNumber}";
+			$post->filter     = 'raw';
+			$mockPosts[]      = $post;
 		}
-		//Return a mock array of mock posts
+
 		return $mockPosts;
 	}
 }
