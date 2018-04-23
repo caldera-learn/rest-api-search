@@ -61,14 +61,12 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function addFilter() : bool
 	{
-		/** @scrutinizer ignore-call */
 		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
 	public static function removeFilter() : bool
 	{
-		/** @scrutinizer ignore-call */
 		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
