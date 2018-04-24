@@ -28,13 +28,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 */
 	public static function callback($postsOrNull)
 	{
-		// Bail out if not a WordPress REST Request.
-		if ( ! static::shouldFilter()) {
-			return $postsOrNull;
-		}
-
-		// Bail out if posts were already sent.
-		if ( ! is_null($postsOrNull)) {
+		if ( ! static::shouldFilter($postsOrNull)) {
 			return $postsOrNull;
 		}
 
@@ -45,9 +39,19 @@ class FilterWPQuery implements FiltersPreWPQuery
 	}
 
 	/** @inheritdoc */
-	public static function shouldFilter() :bool
+	public static function shouldFilter($postsOrNull) :bool
 	{
-		return did_action('rest_api_init');
+		// REST request checker.
+		if ( ! did_action('rest_api_init')) {
+			return false;
+		}
+
+		// Null checker.
+		if ( ! is_null($postsOrNull)) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/** @inheritdoc */
