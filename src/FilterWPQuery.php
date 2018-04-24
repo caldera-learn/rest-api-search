@@ -41,17 +41,25 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function shouldFilter($postsOrNull) :bool
 	{
-		// Null checker.
 		if ( ! is_null($postsOrNull)) {
 			return false;
 		}
 
-		// REST request checker.
-		if ( ! did_action('rest_api_init')) {
+		if ( ! static::doingREST()) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if WordPress is doing a REST request.
+	 *
+	 * @return bool
+	 */
+	private static function doingREST() : bool
+	{
+		return did_action('rest_api_init');
 	}
 
 	/** @inheritdoc */
