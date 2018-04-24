@@ -12,7 +12,7 @@ class RestRequestTest extends RestAPITestCase
 	/**
 	 * Ensures that REST API requests will be filtered
 	 *
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testShouldFilter()
 	{
@@ -28,7 +28,7 @@ class RestRequestTest extends RestAPITestCase
 	 * Ensure that REST API response data was correctly altered
 	 *
 	 * @covers FilterWPQuery::shouldFilter();
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testFilteringRESTRequest()
 	{

@@ -52,7 +52,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	 * Test that by default this class does not do anything by default
 	 *
 	 * @covers FilterWPQuery::shouldFilter()
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testNotFilteringByDefault()
 	{
@@ -115,7 +115,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	public function testGetPostsArePostsShouldFilter()
 	{
 		//Get the mock posts
-		$results = AlwaysFilterWPQuery::callback(null);
+		$results = AlwaysFilterWPQuery::filterPreQuery(null);
 		$this->assertTrue(is_array($results));
 		$this->assertFalse(empty($results));
 		$expected = AlwaysFilterWPQuery::getPosts();
