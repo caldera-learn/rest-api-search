@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch;
 
 /**
@@ -28,33 +27,33 @@ interface FiltersPreWPQuery
 	 * @param array|null $postsOrNull Array of WP_Posts or null.
 	 * @return bool
 	 */
-	public static function shouldFilter($postsOrNull) :bool;
+	public static function shouldFilter($postsOrNull) : bool;
 
 	/**
-	 * Remove the filter using this callback
+	 * Remove the filter.
 	 *
 	 * @return bool
 	 */
-	public static function removeFilter() :bool;
+	public static function removeFilter() : bool;
 
 	/**
-	 * Add the filter, using this callback
+	 * Add the filter.
 	 *
 	 * @return bool
 	 */
 	public static function addFilter() : bool;
 
 	/**
-	 * Get the priority for the filter
+	 * Get the priority level for the filter.
 	 *
 	 * @return int
 	 */
 	public static function getFilterPriority() : int;
 
 	/**
-	 * Create the array of posts to return
+	 * Get the posts.
 	 *
-	 * @return \WP_Post[]
+	 * @return array Returns an array of WP_Post objects.
 	 */
-	public static function getPosts() :array;
+	public static function getPosts() : array;
 }

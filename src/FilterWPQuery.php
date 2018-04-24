@@ -39,7 +39,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	}
 
 	/** @inheritdoc */
-	public static function shouldFilter($postsOrNull) :bool
+	public static function shouldFilter($postsOrNull) : bool
 	{
 		if ( ! is_null($postsOrNull)) {
 			return false;
@@ -53,7 +53,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 *
 	 * @return bool
 	 */
-	private static function doingREST() :bool
+	private static function doingREST() : bool
 	{
 		return did_action('rest_api_init');
 	}
