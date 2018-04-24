@@ -45,11 +45,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 			return false;
 		}
 
-		if ( ! static::doingREST()) {
-			return false;
-		}
-
-		return true;
+		return static::doingREST();
 	}
 
 	/**
