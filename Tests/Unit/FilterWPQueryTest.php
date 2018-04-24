@@ -4,6 +4,8 @@
 namespace CalderaLearn\RestSearch\Tests\Unit;
 
 use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
+use stdClass;
+use WP_Post;
 
 /**
  * Class FilterWPQueryTest
@@ -68,7 +70,7 @@ class FilterWPQueryTest extends TestCase
 	 */
 	public function testShouldFilter()
 	{
-		$this->assertTrue(FilterWPQuery::shouldFilter());
+		$this->assertTrue(FilterWPQuery::shouldFilter(null));
 	}
 
 	/**
@@ -82,7 +84,7 @@ class FilterWPQueryTest extends TestCase
 		$expected = FilterWPQuery::getPosts();
 
 		//Get the results from the callback
-		$results  = FilterWPQuery::callback(null);
+		$results  = FilterWPQuery::filterPreQuery(null);
 
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));
@@ -116,12 +118,12 @@ class FilterWPQueryTest extends TestCase
 	public function testCallbackWithArray()
 	{
 		//Create 1 mock posts
-		$post = new \WP_Post((new \stdClass()));
+		$post = new WP_Post( new stdClass() );
 		$post->post_title = 'The title of this post is post';
 		$expected = [ $post ];
 
 		//Get the results from the callback
-		$results  = FilterWPQuery::callback($expected);
+		$results  = FilterWPQuery::filterPreQuery($expected);
 
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));

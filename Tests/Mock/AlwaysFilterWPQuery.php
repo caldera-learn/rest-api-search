@@ -5,15 +5,14 @@ namespace CalderaLearn\RestSearch\Tests\Mock;
 
 class AlwaysFilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 {
-
 	/** @inheritdoc */
-	public static function shouldFilter(): bool
+	public static function shouldFilter($postsOrNull) : bool
 	{
-		return true;
+		return is_null($postsOrNull);
 	}
 
 	/** @inheritdoc */
-	public static function getPosts(): array
+	public static function getPosts() : array
 	{
 		if (function_exists('wp_insert_post')) {
 			$posts = [];
