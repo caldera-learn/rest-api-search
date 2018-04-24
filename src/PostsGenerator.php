@@ -5,7 +5,7 @@ namespace CalderaLearn\RestSearch;
 use stdClass;
 use WP_Post;
 
-class PostGenerator
+class PostsGenerator
 {
 	/**
 	 * Generates an array of mocked posts.

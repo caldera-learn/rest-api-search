@@ -79,6 +79,6 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function getPosts() : array
 	{
-		return PostGenerator::generate(4);
+		return PostsGenerator::generate(4);
 	}
 }
