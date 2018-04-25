@@ -68,7 +68,7 @@ class FilterWPQueryTest extends TestCase
 	 */
 	public function testShouldFilter()
 	{
-		$this->assertTrue(FilterWPQuery::shouldFilter());
+		$this->assertTrue(FilterWPQuery::shouldFilter(null));
 	}
 
 	/**

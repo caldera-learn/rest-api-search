@@ -28,7 +28,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Make sure addFilter() had the right effect --  it was added with priority 10
 		$this->assertEquals(
 			FilterWPQuery::getFilterPriority(),
-			has_filter('posts_pre_query', [FilterWPQuery::class, 'callback'])
+			has_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'])
 		);
 	}
 
@@ -44,7 +44,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Remove and test return type
 		$this->assertTrue(FilterWPQuery::removeFilter());
 		//Make sure removeFilter() had the right effect -- the filter was removed
-		$this->assertFalse(has_filter('posts_pre_query', [FilterWPQuery::class, 'callback']));
+		$this->assertFalse(has_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery']));
 	}
 
 
@@ -62,7 +62,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Add filter
 		FilterWPQuery::addFilter();
 		//Test that the filter SHOULD not do anything
-		$this->assertFalse(FilterWPQuery::shouldFilter());
+		$this->assertFalse(FilterWPQuery::shouldFilter([]));
 		//Query for all posts -- should only be one post, the one we just created.
 		$query = new \WP_Query(['post_type' => 'post']);
 		$this->assertFalse(empty($query->posts));

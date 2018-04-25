@@ -20,7 +20,7 @@ class RestRequestTest extends RestAPITestCase
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');
 		rest_api_loaded();
 		//Make sure the method returns true
-		$this->assertTrue(FilterWPQuery::shouldFilter());
+		$this->assertTrue(FilterWPQuery::shouldFilter(null));
 	}
 
 
@@ -34,7 +34,7 @@ class RestRequestTest extends RestAPITestCase
 	{
 		//Setup filter
 		AlwaysFilterWPQuery::addFilter();
-		$this->assertTrue(AlwaysFilterWPQuery::shouldFilter());
+		$this->assertTrue(AlwaysFilterWPQuery::shouldFilter(null));
 
 		//Create a request
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');
