@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Unit;
 
 use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
@@ -14,7 +13,6 @@ use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
  */
 class FilterWPQueryTest extends TestCase
 {
-
 	/**
 	 * Test that the filter priority is 10
 	 *

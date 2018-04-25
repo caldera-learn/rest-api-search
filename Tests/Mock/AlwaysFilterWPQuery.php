@@ -1,11 +1,9 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Mock;
 
 class AlwaysFilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 {
-
 	/** @inheritdoc */
 	public static function shouldFilter($postsOrNull): bool
 	{

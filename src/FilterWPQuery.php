@@ -11,7 +11,6 @@ namespace CalderaLearn\RestSearch;
  */
 class FilterWPQuery implements FiltersPreWPQuery
 {
-
 	/**
 	 * Priority for filter
 	 *
@@ -40,7 +39,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	}
 
 	/** @inheritdoc */
-	public static function shouldFilter($postsOrNull) :bool
+	public static function shouldFilter($postsOrNull): bool
 	{
 		if ( ! is_null($postsOrNull)) {
 			return false;
@@ -54,32 +53,31 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 *
 	 * @return bool
 	 */
-	private static function doingREST() : bool
+	private static function doingREST(): bool
 	{
 		return did_action('rest_api_init');
 	}
 
 	/** @inheritdoc */
-	public static function addFilter() : bool
+	public static function addFilter(): bool
 	{
 		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
-	public static function removeFilter() : bool
+	public static function removeFilter(): bool
 	{
 		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
-	public static function getFilterPriority() : int
+	public static function getFilterPriority(): int
 	{
 		return static::$filterPriority;
 	}
 
-
 	/** @inheritdoc */
-	public static function getPosts() : array
+	public static function getPosts(): array
 	{
 		//Create 4 mock posts with different titles
 		$mockPosts = [];

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Mock;
 
 /**
@@ -13,19 +12,19 @@ namespace CalderaLearn\RestSearch\Tests\Mock;
 class FilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 {
 	/** @inheritdoc */
-	public static function shouldFilter($postsOrNull) :bool
+	public static function shouldFilter($postsOrNull): bool
 	{
 		return is_null($postsOrNull);
 	}
 
 	/** @inheritdoc */
-	public static function removeFilter() : bool
+	public static function removeFilter(): bool
 	{
 		return true;
 	}
 
 	/** @inheritdoc */
-	public static function getPosts() : array
+	public static function getPosts(): array
 	{
 		//Create 4 mock posts with different titles
 		$mockPosts = [];

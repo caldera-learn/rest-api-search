@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Integration;
 
 use CalderaLearn\RestSearch\FilterWPQuery;
@@ -15,7 +14,6 @@ use CalderaLearn\RestSearch\Tests\Mock\AlwaysFilterWPQuery;
  */
 class FilterWPQueryTest extends IntegrationTestCase
 {
-
 	/**
 	 * Test adding the filter
 	 *
@@ -47,7 +45,6 @@ class FilterWPQueryTest extends IntegrationTestCase
 		$this->assertFalse(has_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery']));
 	}
 
-
 	/**
 	 * Test that by default this class does not do anything by default
 	 *
@@ -70,7 +67,6 @@ class FilterWPQueryTest extends IntegrationTestCase
 		$this->assertEquals($postId, $query->posts[0]->ID);
 		$this->assertEquals($postTitle, $query->posts[0]->post_title);
 	}
-
 
 	/**
 	 * Test that the getPosts method return an array
@@ -105,7 +101,6 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Make sure loop ran
 		$this->assertTrue($looped);
 	}
-
 
 	/**
 	 * Test that the getPosts method does filter when it is explicitly set to so.
