@@ -97,7 +97,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 		$mockPosts = [];
 		for ($postNumber = 0; $postNumber < $quantity; $postNumber++) {
 			$post             = new WP_Post( new stdClass() );
-			$post->post_title = "Mock Post $postNumber";
+			$post->post_title = "Mock Post {$postNumber}";
 			$post->filter     = 'raw';
 			$mockPosts[]      = $post;
 		}
