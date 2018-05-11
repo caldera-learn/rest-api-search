@@ -3,8 +3,6 @@
 namespace CalderaLearn\RestSearch;
 
 use CalderaLearn\RestSearch\ContentGetter\ContentGetterContract;
-use stdClass;
-use WP_Post;
 
 /**
  * Class FilterWPQuery
@@ -102,6 +100,6 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function getPosts(): array
 	{
-		return static::$contentGetter->getContent(4);
+		return static::$contentGetter->getContent();
 	}
 }

@@ -15,5 +15,5 @@ interface ContentGetterContract
 	 *
 	 * @return array
 	 */
-	public function getContent( $quantity = 4 ) : array;
+	public function getContent( $quantity = 4 ): array;
 }
