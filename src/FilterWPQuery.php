@@ -30,6 +30,18 @@ class FilterWPQuery implements FiltersPreWPQuery
 	protected static $filterPriority = 10;
 
 	/**
+	 * Initialize the search filter by binding a specific content getter implementation.
+	 *
+	 * @param ContentGetterContract $contentGetter Instance of the implementation.
+	 *
+	 * @return void
+	 */
+	public static function init(ContentGetterContract $contentGetter)
+	{
+		static::$contentGetter = $contentGetter;
+	}
+
+	/**
 	 * Filters the results of WP_Query objects.
 	 *
 	 * This callback demonstrates how to use a different way to set the posts that WP_Query returns.
