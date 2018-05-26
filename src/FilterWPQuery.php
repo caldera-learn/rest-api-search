@@ -2,6 +2,9 @@
 
 namespace CalderaLearn\RestSearch;
 
+use stdClass;
+use WP_Post;
+
 /**
  * Class FilterWPQuery
  *
@@ -79,15 +82,26 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function getPosts(): array
 	{
-		//Create 4 mock posts with different titles
+		return static::generatePosts(4);
+	}
+
+	/**
+	 * Generates an array of mocked posts.
+	 *
+	 * @param int $quantity Number of posts to generate.
+	 *
+	 * @return array
+	 */
+	private static function generatePosts($quantity): array
+	{
 		$mockPosts = [];
-		for ($i = 0; $i <= 3; $i++) {
-			$post = new \WP_Post((new \stdClass()));
-			$post->post_title = "Mock Post $i";
-			$post->filter = 'raw';
-			$mockPosts[$i] = $post;
+		for ($postNumber = 0; $postNumber < $quantity; $postNumber++) {
+			$post             = new WP_Post( new stdClass() );
+			$post->post_title = "Mock Post {$postNumber}";
+			$post->filter     = 'raw';
+			$mockPosts[]      = $post;
 		}
-		//Return a mock array of mock posts
+
 		return $mockPosts;
 	}
 }
