@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Integration;
 
 use CalderaLearn\RestSearch\FilterWPQuery;
@@ -15,7 +14,6 @@ use CalderaLearn\RestSearch\Tests\Mock\AlwaysFilterWPQuery;
  */
 class FilterWPQueryTest extends IntegrationTestCase
 {
-
 	/**
 	 * Test adding the filter
 	 *
@@ -28,7 +26,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Make sure addFilter() had the right effect --  it was added with priority 10
 		$this->assertEquals(
 			FilterWPQuery::getFilterPriority(),
-			has_filter('posts_pre_query', [FilterWPQuery::class, 'callback'])
+			has_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'])
 		);
 	}
 
@@ -44,15 +42,14 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Remove and test return type
 		$this->assertTrue(FilterWPQuery::removeFilter());
 		//Make sure removeFilter() had the right effect -- the filter was removed
-		$this->assertFalse(has_filter('posts_pre_query', [FilterWPQuery::class, 'callback']));
+		$this->assertFalse(has_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery']));
 	}
-
 
 	/**
 	 * Test that by default this class does not do anything by default
 	 *
 	 * @covers FilterWPQuery::shouldFilter()
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testNotFilteringByDefault()
 	{
@@ -62,7 +59,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		//Add filter
 		FilterWPQuery::addFilter();
 		//Test that the filter SHOULD not do anything
-		$this->assertFalse(FilterWPQuery::shouldFilter());
+		$this->assertFalse(FilterWPQuery::shouldFilter([]));
 		//Query for all posts -- should only be one post, the one we just created.
 		$query = new \WP_Query(['post_type' => 'post']);
 		$this->assertFalse(empty($query->posts));
@@ -70,7 +67,6 @@ class FilterWPQueryTest extends IntegrationTestCase
 		$this->assertEquals($postId, $query->posts[0]->ID);
 		$this->assertEquals($postTitle, $query->posts[0]->post_title);
 	}
-
 
 	/**
 	 * Test that the getPosts method return an array
@@ -106,7 +102,6 @@ class FilterWPQueryTest extends IntegrationTestCase
 		$this->assertTrue($looped);
 	}
 
-
 	/**
 	 * Test that the getPosts method does filter when it is explicitly set to so.
 	 *
@@ -115,7 +110,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	public function testGetPostsArePostsShouldFilter()
 	{
 		//Get the mock posts
-		$results = AlwaysFilterWPQuery::callback(null);
+		$results = AlwaysFilterWPQuery::filterPreQuery(null);
 		$this->assertTrue(is_array($results));
 		$this->assertFalse(empty($results));
 		$expected = AlwaysFilterWPQuery::getPosts();

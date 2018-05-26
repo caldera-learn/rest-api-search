@@ -11,63 +11,73 @@ namespace CalderaLearn\RestSearch;
  */
 class FilterWPQuery implements FiltersPreWPQuery
 {
-
 	/**
 	 * Priority for filter
 	 *
 	 * @var int
 	 */
 	protected static $filterPriority = 10;
+
 	/**
-	 * Demonstrates how to use a different way to set the posts that WP_Query returns
+	 * Filters the results of WP_Query objects.
+	 *
+	 * This callback demonstrates how to use a different way to set the posts that WP_Query returns.
 	 *
 	 * @uses "posts_pre_query"
 	 *
 	 * @param $postsOrNull
-	 * @return \WP_Post[]
+	 *
+	 * @return array Returns an array of WP_Post objects.
 	 */
-	public static function callback($postsOrNull)
+	public static function filterPreQuery($postsOrNull)
 	{
-		//Only run during WordPress API requests
-		if (static::shouldFilter()) {
-			//Prevent recursions
-			//Don't run if posts are already sent
-			if (is_null($postsOrNull)) {
-				//Get mock data
-				$postsOrNull = static::getPosts();
-			}
+		if ( ! static::shouldFilter($postsOrNull)) {
+			return $postsOrNull;
 		}
-		//Always return something, even if its unchanged
-		return $postsOrNull;
+
+		return static::getPosts();
 	}
 
 	/** @inheritdoc */
-	public static function shouldFilter() :bool
+	public static function shouldFilter($postsOrNull): bool
+	{
+		if ( ! is_null($postsOrNull)) {
+			return false;
+		}
+
+		return static::doingREST();
+	}
+
+	/**
+	 * Checks if WordPress is doing a REST request.
+	 *
+	 * @return bool
+	 */
+	private static function doingREST(): bool
 	{
 		return did_action('rest_api_init');
 	}
 
 	/** @inheritdoc */
-	public static function addFilter() : bool
+	public static function addFilter(): bool
 	{
-		return add_filter('posts_pre_query', [FilterWPQuery::class, 'callback'], 10);
+		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
-	public static function removeFilter() : bool
+	public static function removeFilter(): bool
 	{
-		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'callback'], 10);
+		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
-	public static function getFilterPriority() : int
+	public static function getFilterPriority(): int
 	{
 		return static::$filterPriority;
 	}
 
-
 	/** @inheritdoc */
-	public static function getPosts() : array
+	public static function getPosts(): array
 	{
 		//Create 4 mock posts with different titles
 		$mockPosts = [];

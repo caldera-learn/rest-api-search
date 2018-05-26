@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Unit;
 
 use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
@@ -14,7 +13,6 @@ use CalderaLearn\RestSearch\Tests\Mock\FilterWPQuery;
  */
 class FilterWPQueryTest extends TestCase
 {
-
 	/**
 	 * Test that the filter priority is 10
 	 *
@@ -68,13 +66,13 @@ class FilterWPQueryTest extends TestCase
 	 */
 	public function testShouldFilter()
 	{
-		$this->assertTrue(FilterWPQuery::shouldFilter());
+		$this->assertTrue(FilterWPQuery::shouldFilter(null));
 	}
 
 	/**
 	 * Test the result data is consistent
 	 *
-	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::callback()
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::filterPreQuery()
 	 */
 	public function testCallbackWithNull()
 	{
@@ -82,7 +80,7 @@ class FilterWPQueryTest extends TestCase
 		$expected = FilterWPQuery::getPosts();
 
 		//Get the results from the callback
-		$results  = FilterWPQuery::callback(null);
+		$results  = FilterWPQuery::filterPreQuery(null);
 
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));
@@ -111,7 +109,7 @@ class FilterWPQueryTest extends TestCase
 	/**
 	 * Test the result data is not changed, when passed an array
 	 *
-	 * * @covers \CalderaLearn\RestSearch\FilterWPQuery::callback()
+	 * * @covers \CalderaLearn\RestSearch\FilterWPQuery::filterPreQuery()
 	 */
 	public function testCallbackWithArray()
 	{
@@ -121,7 +119,7 @@ class FilterWPQueryTest extends TestCase
 		$expected = [ $post ];
 
 		//Get the results from the callback
-		$results  = FilterWPQuery::callback($expected);
+		$results  = FilterWPQuery::filterPreQuery($expected);
 
 		//Make sure results are an array
 		$this->assertTrue(is_array($results));

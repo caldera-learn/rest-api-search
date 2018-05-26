@@ -1,15 +1,13 @@
 <?php
 
-
 namespace CalderaLearn\RestSearch\Tests\Mock;
 
 class AlwaysFilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
 {
-
 	/** @inheritdoc */
-	public static function shouldFilter(): bool
+	public static function shouldFilter($postsOrNull): bool
 	{
-		return true;
+		return is_null($postsOrNull);
 	}
 
 	/** @inheritdoc */

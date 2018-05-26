@@ -12,7 +12,7 @@ class RestRequestTest extends RestAPITestCase
 	/**
 	 * Ensures that REST API requests will be filtered
 	 *
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testShouldFilter()
 	{
@@ -20,7 +20,7 @@ class RestRequestTest extends RestAPITestCase
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');
 		rest_api_loaded();
 		//Make sure the method returns true
-		$this->assertTrue(FilterWPQuery::shouldFilter());
+		$this->assertTrue(FilterWPQuery::shouldFilter(null));
 	}
 
 
@@ -28,13 +28,13 @@ class RestRequestTest extends RestAPITestCase
 	 * Ensure that REST API response data was correctly altered
 	 *
 	 * @covers FilterWPQuery::shouldFilter();
-	 * @covers FilterWPQuery::callback()
+	 * @covers FilterWPQuery::filterPreQuery()
 	 */
 	public function testFilteringRESTRequest()
 	{
 		//Setup filter
 		AlwaysFilterWPQuery::addFilter();
-		$this->assertTrue(AlwaysFilterWPQuery::shouldFilter());
+		$this->assertTrue(AlwaysFilterWPQuery::shouldFilter(null));
 
 		//Create a request
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');
