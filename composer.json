@@ -32,14 +32,13 @@
     "autoload-dev": {
         "psr-4": {
             "CalderaLearn\\RestSearch\\Tests\\": "Tests/"
-        },
-        "files": ["Tests/Mock/WP_Post.php"]
+        }
     },
     "require-dev": {
         "php": "^7.1",
         "brain/monkey": "^2.2",
         "mockery/mockery": ">=0.9 <2",
-        "phpunit/phpunit": "^7.0",
+        "phpunit/phpunit": "~5.7.9",
         "squizlabs/php_codesniffer": "^3.2",
         "jakub-onderka/php-parallel-lint": "^1.0"
     }
