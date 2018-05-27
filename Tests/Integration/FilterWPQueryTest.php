@@ -58,10 +58,13 @@ class FilterWPQueryTest extends IntegrationTestCase
         //Add one post and save its title and ID in variables for comparing to
         $postTitle = 'The expected post title';
         $postId    = $this->factory->post->create(['post_title' => $postTitle]);
+
         //Add filter
         FilterWPQuery::addFilter();
+
         //Test that the filter SHOULD not do anything
         $this->assertFalse(FilterWPQuery::shouldFilter([]));
+
         //Query for all posts -- should only be one post, the one we just created.
         $query = new WP_Query(['post_type' => 'post']);
         $this->assertFalse(empty($query->posts));
@@ -124,12 +127,11 @@ class FilterWPQueryTest extends IntegrationTestCase
     {
         // Set up the test.
         $numberOfPosts = 5;
-        $query         = new WP_Query();
-        $query->query  = ['posts_per_page' => $numberOfPosts];
+        $query         = new WP_Query(['posts_per_page' => $numberOfPosts]);
         FilterWPQuery::init(new PostsGenerator());
 
         // Mock that it's a RESTful request.
-        Monkey\Functions\expect( 'did_action')->with('rest_api_init')->andReturn(1);
+        Monkey\Functions\expect('did_action')->with('rest_api_init')->andReturn(1);
         $this->assertTrue(FilterWPQuery::shouldFilter(null));
 
         // Run it.
