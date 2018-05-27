@@ -9,6 +9,9 @@ if (! $_tests_dir) {
 	$_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
+// Load Patchwork before everything else in order to allow us to redefine WordPress and Beans functions.
+require_once dirname(dirname(__FILE__)) . '/vendor/brain/monkey/inc/patchwork-loader.php';
+
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';
 

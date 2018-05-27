@@ -18,16 +18,13 @@ class AlwaysFilterWPQuery extends \CalderaLearn\RestSearch\FilterWPQuery
         }
 
         $posts   = [];
-        $id      = wp_insert_post([
-            'post_title'   => rand(),
-            'post_content' => rand(),
-        ]);
-        $posts[] = get_post($id);
-        $id      = wp_insert_post([
-            'post_title' => rand(),
-            'post_content' => rand()
-        ]);
-        $posts[] = get_post($id);
+        for ($postNumber = 0; $postNumber < 2; $postNumber++) {
+            $id      = wp_insert_post([
+                'post_title'   => "This is a mocked post for {$postNumber}.",
+                'post_content' => 'This is some amazing test content.',
+            ]);
+            $posts[] = get_post($id);
+        }
 
         return $posts;
     }

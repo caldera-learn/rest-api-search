@@ -2,9 +2,9 @@
 
 namespace CalderaLearn\RestSearch\Tests\Integration;
 
+use Brain\Monkey;
 use CalderaLearn\RestSearch\ContentGetter\PostsGenerator;
 use CalderaLearn\RestSearch\FilterWPQuery;
-use CalderaLearn\RestSearch\Tests\Mock\AlwaysFilterWPQuery;
 use WP_Query;
 
 /**
@@ -81,7 +81,7 @@ class FilterWPQueryTest extends IntegrationTestCase
         FilterWPQuery::init(new PostsGenerator());
 
         //Get the mock posts
-        $query = new WP_Query();
+        $query   = new WP_Query();
         $results = FilterWPQuery::getPosts($query);
 
         //Make sure results are an array
@@ -99,7 +99,7 @@ class FilterWPQueryTest extends IntegrationTestCase
         FilterWPQuery::init(new PostsGenerator());
 
         //Get the mock posts
-        $query = new WP_Query();
+        $query   = new WP_Query();
         $results = FilterWPQuery::getPosts($query);
 
         $this->assertFalse(empty($results));
@@ -122,12 +122,56 @@ class FilterWPQueryTest extends IntegrationTestCase
      */
     public function testGetPostsArePostsShouldFilter()
     {
-        //Get the mock posts
-        $query = new WP_Query();
-        $results = AlwaysFilterWPQuery::filterPreQuery(null, $query);
-        $this->assertTrue(is_array($results));
-        $this->assertFalse(empty($results));
-        $expected = AlwaysFilterWPQuery::getPosts($query);
-        $this->assertEquals(count($expected), count($results));
+        // Set up the test.
+        $numberOfPosts = 5;
+        $query         = new WP_Query();
+        $query->query  = ['posts_per_page' => $numberOfPosts];
+        FilterWPQuery::init(new PostsGenerator());
+
+        // Mock that it's a RESTful request.
+        Monkey\Functions\expect( 'did_action')->with('rest_api_init')->andReturn(1);
+        $this->assertTrue(FilterWPQuery::shouldFilter(null));
+
+        // Run it.
+        $actual = FilterWPQuery::filterPreQuery(null, $query);
+
+        // Let's test.
+        $this->assertTrue(is_array($actual));
+        $this->assertFalse(empty($actual));
+        $this->assertEquals($numberOfPosts, count($actual));
+
+        foreach ($actual as $index => $post) {
+            $this->assertSame("Mock Post {$index}", $post->post_title);
+        }
+    }
+
+    /**
+     * Test end-to-end by running a REST request.
+     *
+     * @covers FilterWPQuery::shouldFilter();
+     * @covers FilterWPQuery::filterPreQuery()
+     */
+    public function testEnd2End()
+    {
+        $numberOfPosts = 5;
+
+        //Setup filter
+        FilterWPQuery::addFilter();
+        FilterWPQuery::init(new PostsGenerator());
+
+        // Process the REST request.
+        $request = new \WP_REST_Request('GET', '/wp/v2/posts');
+        $request->set_param('per_page', $numberOfPosts);
+        $response = rest_get_server()->dispatch($request);
+
+        // Let's test.
+        $this->assertSame(200, $response->get_status());
+
+        $responseData = $response->get_data();
+        $this->assertTrue(is_array($responseData));
+        $this->assertSame($numberOfPosts, count($responseData));
+        foreach ($responseData as $index => $responsePost) {
+            $this->assertSame("Mock Post {$index}", $responsePost['title']['rendered']);
+        }
     }
 }
