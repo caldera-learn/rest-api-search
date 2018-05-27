@@ -2,6 +2,9 @@
 
 namespace CalderaLearn\RestSearch\ContentGetter;
 
+use stdClass;
+use WP_Post;
+
 /**
  * Handles generating posts for the search query.
  * @package CalderaLearn\RestSearch\ContentGetter
@@ -27,7 +30,7 @@ class PostsGenerator implements ContentGetterContract
 	 *
 	 * @return array
 	 */
-	private static function generatePosts($quantity): array
+	private function generatePosts($quantity): array
 	{
 		$mockPosts = [];
 		for ($postNumber = 0; $postNumber < $quantity; $postNumber++) {
