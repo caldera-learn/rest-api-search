@@ -5,6 +5,7 @@ namespace CalderaLearn\RestSearch\Tests\Integration;
 use Brain\Monkey;
 use CalderaLearn\RestSearch\ContentGetter\PostsGenerator;
 use CalderaLearn\RestSearch\FilterWPQuery;
+use CalderaLearn\RestSearch\Tests\Mock\CreatePostsImplementation;
 use WP_Query;
 
 /**
@@ -119,10 +120,10 @@ class FilterWPQueryTest extends IntegrationTestCase
     }
 
     /**
-     * Test that the getPosts method does filter when it is explicitly set to so.
-     *
-     * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
-     */
+ * Test that the getPosts method does filter when it is explicitly set to so.
+ *
+ * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
+ */
     public function testGetPostsArePostsShouldFilter()
     {
         // Set up the test.
@@ -144,6 +145,37 @@ class FilterWPQueryTest extends IntegrationTestCase
 
         foreach ($actual as $index => $post) {
             $this->assertSame("Mock Post {$index}", $post->post_title);
+        }
+    }
+
+    /**
+     * Test that it filters the query with a different implementation.
+     *
+     * @covers \CalderaLearn\RestSearch\FilterWPQuery::init()
+     * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
+     */
+    public function testFilteringWithADifferentImplementation()
+    {
+        // Set up the test.
+        $numberOfPosts = 3;
+        $query         = new WP_Query(['posts_per_page' => $numberOfPosts]);
+        FilterWPQuery::init(new CreatePostsImplementation());
+
+        // Mock that it's a RESTful request.
+        Monkey\Functions\expect('did_action')->with('rest_api_init')->andReturn(1);
+        $this->assertTrue(FilterWPQuery::shouldFilter(null));
+
+        // Run it.
+        $actual = FilterWPQuery::filterPreQuery(null, $query);
+
+        // Let's test.
+        $this->assertTrue(is_array($actual));
+        $this->assertFalse(empty($actual));
+        $this->assertEquals($numberOfPosts, count($actual));
+
+        foreach ($actual as $index => $post) {
+            $this->assertSame("This is an inserted post for {$index}.", $post->post_title);
+            $this->assertSame('This is some really awesome content about testing.', $post->post_content);
         }
     }
 

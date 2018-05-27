@@ -5,25 +5,28 @@
  */
 
 $_tests_dir = getenv('WP_TESTS_DIR');
-if (! $_tests_dir) {
-	$_tests_dir = '/tmp/wordpress-tests-lib';
+if (!$_tests_dir) {
+    $_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
 // Load Patchwork before everything else in order to allow us to redefine WordPress and plugin functions.
-require_once dirname(dirname(__FILE__)) . '/vendor/brain/monkey/inc/patchwork-loader.php';
+require_once dirname(__FILE__, 2) . '/vendor/brain/monkey/inc/patchwork-loader.php';
 
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';
 
+tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 /**
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin()
 {
-	require dirname(dirname(__FILE__)) . '/rest-api-search.php';
+    require dirname(__FILE__, 2) . '/rest-api-search.php';
 }
-tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
+
+// Clean up.
+unset($_tests_dir);
 // phpcs:enable
