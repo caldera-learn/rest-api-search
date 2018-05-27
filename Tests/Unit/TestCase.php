@@ -21,6 +21,8 @@ abstract class TestCase extends FrameworkTestCase
     protected function setUp() {
         parent::setUp();
         Monkey\setUp();
+
+        $this->setup_common_wp_stubs();
     }
 
     /**
@@ -30,5 +32,18 @@ abstract class TestCase extends FrameworkTestCase
     {
         Monkey\tearDown();
         parent::tearDown();
+    }
+
+    /**
+     * Set up the stubs for the common WordPress escaping and internationalization functions.
+     */
+    protected function setup_common_wp_stubs() {
+        // Common internationalization functions.
+        Monkey\Functions\stubs( array(
+            '__',
+            'esc_html__',
+            'esc_html_x',
+            'esc_attr_x',
+        ) );
     }
 }
