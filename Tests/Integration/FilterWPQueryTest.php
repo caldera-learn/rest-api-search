@@ -5,6 +5,7 @@ namespace CalderaLearn\RestSearch\Tests\Integration;
 use CalderaLearn\RestSearch\ContentGetter\PostsGenerator;
 use CalderaLearn\RestSearch\FilterWPQuery;
 use CalderaLearn\RestSearch\Tests\Mock\AlwaysFilterWPQuery;
+use WP_Query;
 
 /**
  * Class FilterWPQueryTest
@@ -62,7 +63,7 @@ class FilterWPQueryTest extends IntegrationTestCase
         //Test that the filter SHOULD not do anything
         $this->assertFalse(FilterWPQuery::shouldFilter([]));
         //Query for all posts -- should only be one post, the one we just created.
-        $query = new \WP_Query(['post_type' => 'post']);
+        $query = new WP_Query(['post_type' => 'post']);
         $this->assertFalse(empty($query->posts));
         $this->assertEquals(1, count($query->posts[0]));
         $this->assertEquals($postId, $query->posts[0]->ID);
@@ -80,7 +81,8 @@ class FilterWPQueryTest extends IntegrationTestCase
         FilterWPQuery::init(new PostsGenerator());
 
         //Get the mock posts
-        $results = FilterWPQuery::getPosts();
+        $query = new WP_Query();
+        $results = FilterWPQuery::getPosts($query);
 
         //Make sure results are an array
         $this->assertTrue(is_array($results));
@@ -97,7 +99,8 @@ class FilterWPQueryTest extends IntegrationTestCase
         FilterWPQuery::init(new PostsGenerator());
 
         //Get the mock posts
-        $results = FilterWPQuery::getPosts();
+        $query = new WP_Query();
+        $results = FilterWPQuery::getPosts($query);
 
         $this->assertFalse(empty($results));
 
@@ -120,10 +123,11 @@ class FilterWPQueryTest extends IntegrationTestCase
     public function testGetPostsArePostsShouldFilter()
     {
         //Get the mock posts
-        $results = AlwaysFilterWPQuery::filterPreQuery(null);
+        $query = new WP_Query();
+        $results = AlwaysFilterWPQuery::filterPreQuery(null, $query);
         $this->assertTrue(is_array($results));
         $this->assertFalse(empty($results));
-        $expected = AlwaysFilterWPQuery::getPosts();
+        $expected = AlwaysFilterWPQuery::getPosts($query);
         $this->assertEquals(count($expected), count($results));
     }
 }
