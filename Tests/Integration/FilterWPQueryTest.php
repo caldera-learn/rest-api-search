@@ -76,8 +76,12 @@ class FilterWPQueryTest extends IntegrationTestCase
      */
     public function testGetPosts()
     {
+        // Initialize by loading the implementation.
+        FilterWPQuery::init(new PostsGenerator());
+
         //Get the mock posts
         $results = FilterWPQuery::getPosts();
+
         //Make sure results are an array
         $this->assertTrue(is_array($results));
     }
@@ -89,9 +93,14 @@ class FilterWPQueryTest extends IntegrationTestCase
      */
     public function testGetPostsArePosts()
     {
+        // Initialize by loading the implementation.
+        FilterWPQuery::init(new PostsGenerator());
+
         //Get the mock posts
         $results = FilterWPQuery::getPosts();
+
         $this->assertFalse(empty($results));
+
         //Make sure results are an array of WP_Posts
         $looped = false;
         foreach ($results as $result) {
