@@ -50,13 +50,14 @@ class FilterWPQueryTest extends TestCase
      */
     public function testGetPosts()
     {
-        // Set up the Content Getter mock.
+        // Set up the mocks.
         $postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
         $postsGeneratorMock->shouldReceive('getContent')->andReturn([]);
         FilterWPQuery::init($postsGeneratorMock);
+        $wpQueryMock = Mockery::mock('WP_Query');
 
         //Get the mock posts
-        $results = FilterWPQuery::getPosts();
+        $results = FilterWPQuery::getPosts($wpQueryMock);
         //Make sure results are an array
         $this->assertTrue(is_array($results));
     }
@@ -73,10 +74,12 @@ class FilterWPQueryTest extends TestCase
         FilterWPQuery::init($postsGeneratorMock);
         $postsGeneratorMock->shouldReceive('getContent')
             ->once()
-            ->andReturnUsing([$this, 'generateMockedPosts']);
+            ->andReturnUsing([$this, 'mockImplementationCallback']);
+        $wpQueryMock        = Mockery::mock('WP_Query');
+        $wpQueryMock->query = ['posts_per_page' => 4];
 
         //Get the mock posts
-        $results = FilterWPQuery::getPosts();
+        $results = FilterWPQuery::getPosts($wpQueryMock);
         $this->assertFalse(empty($results));
         //Make sure results are an array of WP_Posts
         $looped = false;
@@ -120,10 +123,12 @@ class FilterWPQueryTest extends TestCase
         FilterWPQuery::init($postsGeneratorMock);
         $postsGeneratorMock->shouldReceive('getContent')
             ->once()
-            ->andReturnUsing([$this, 'generateMockedPosts']);
+            ->andReturnUsing([$this, 'mockImplementationCallback']);
+        $wpQueryMock        = Mockery::mock('WP_Query');
+        $wpQueryMock->query = ['posts_per_page' => 4];
 
         //Get the results from the callback
-        $results = FilterWPQuery::filterPreQuery(null);
+        $results = FilterWPQuery::filterPreQuery(null, $wpQueryMock);
 
         //Make sure results are an array
         $this->assertTrue(is_array($results));
@@ -161,12 +166,14 @@ class FilterWPQueryTest extends TestCase
         $postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
         FilterWPQuery::init($postsGeneratorMock);
         $postsGeneratorMock->shouldNotReceive('getContent');
+        $wpQueryMock        = Mockery::mock('WP_Query');
+        $wpQueryMock->query = ['posts_per_page' => 4];
 
         //Create 1 mock posts
         $expected = $this->generateMockedPosts(1);
 
         //Get the results from the callback
-        $results = FilterWPQuery::filterPreQuery($expected);
+        $results = FilterWPQuery::filterPreQuery($expected, $wpQueryMock);
 
         //Make sure results are an array
         $this->assertTrue(is_array($results));
@@ -195,11 +202,24 @@ class FilterWPQueryTest extends TestCase
     /**
      * Generates mocked posts for our tests.
      *
-     * @param int $quantity Number of mocked posts to generate.
+     * @param WP_Query $query Instance of the query mock.
      *
      * @return array
      */
-    public function generateMockedPosts($quantity = 4): array
+    public function mockImplementationCallback($query): array
+    {
+        // Need to grab a quantity.
+        return $this->generateMockedPosts(4);
+    }
+
+    /**
+     * Generates mocked posts for our tests.
+     *
+     * @param int $quantity Number of posts to generate.
+     *
+     * @return array
+     */
+    protected function generateMockedPosts($quantity): array
     {
         $this->mockedPosts = [];
         for ($postNumber = 0; $postNumber < $quantity; $postNumber++) {
