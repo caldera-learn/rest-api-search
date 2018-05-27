@@ -21,7 +21,6 @@ class RestRequestTest extends RestAPITestCase
         $this->assertTrue(FilterWPQuery::shouldFilter(null));
     }
 
-
     /**
      * Ensure that REST API response data was correctly altered
      *
