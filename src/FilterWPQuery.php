@@ -3,6 +3,7 @@
 namespace CalderaLearn\RestSearch;
 
 use CalderaLearn\RestSearch\ContentGetter\ContentGetterContract;
+use WP_Query;
 
 /**
  * Class FilterWPQuery
@@ -46,17 +47,18 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 *
 	 * @uses "posts_pre_query"
 	 *
-	 * @param $postsOrNull
+	 * @param array|null $postsOrNull Array of posts or null.
+     * @param WP_Query $query Instance of the query.
 	 *
 	 * @return array Returns an array of WP_Post objects.
 	 */
-	public static function filterPreQuery($postsOrNull)
+	public static function filterPreQuery($postsOrNull, WP_Query $query)
 	{
 		if ( ! static::shouldFilter($postsOrNull)) {
 			return $postsOrNull;
 		}
 
-		return static::getPosts();
+		return static::getPosts($query);
 	}
 
 	/** @inheritdoc */
@@ -82,7 +84,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function addFilter(): bool
 	{
-		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
+		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority, 2);
 	}
 
 	/** @inheritdoc */
@@ -98,8 +100,8 @@ class FilterWPQuery implements FiltersPreWPQuery
 	}
 
 	/** @inheritdoc */
-	public static function getPosts(): array
+	public static function getPosts(WP_Query $query): array
 	{
-		return static::$contentGetter->getContent();
+		return static::$contentGetter->getContent($query);
 	}
 }
