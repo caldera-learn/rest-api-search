@@ -10,35 +10,35 @@ namespace CalderaLearn\RestSearch;
  *
  * @package ExamplePlugin
  */
-class ModifyQueryArgs
+class ModifyQueryArgs implements ModifyQueryArgsContract
 {
 	use UsesPreparedPostTypes;
-
-
 	/**
-	 * Filter query args if needed
-	 *
-	 * @param array $args Key value array of query var to query value.
-	 * @param \WP_REST_Request $request The request used.
-	 *
-	 * @return array
+	 * @var \WP_REST_Request
 	 */
-	public function filterQueryArgs($args, $request)
+	protected $request;
+
+	/** @inheritdoc */
+	public function getAdditionalQueryArguments() :array
+	{
+		return [
+			'post_type' => $this->restBasesToPostTypeSlugs($this->request[ModifySchema::ARGNAME])
+		];
+	}
+
+    /** @inheritdoc */
+    public function filterQueryArgs($args, $request)
 	{
 		if ($this->shouldFilter($request)) {
+			$this->request = $request;
 			add_filter('posts_pre_query', [FilterWPQuery::class, 'posts_pre_query'], 10, 2);
-			$args['post_type'] = $this->restBasesToPostTypeSlugs($request[ModifySchema::ARGNAME]);
+			$args = array_merge($this->getAdditionalQueryArguments(), $args);
 		}
 		return $args;
 	}
 
-	/**
-	 * Check if we should filter request args
-	 *
-	 * @param \WP_REST_Request $request
-	 * @return bool
-	 */
-	public function shouldFilter(\WP_REST_Request $request): bool
+    /** @inheritdoc */
+    public function shouldFilter(\WP_REST_Request $request): bool
 	{
 		$attributes = $request->get_attributes();
 		if (isset($attributes['args'][ModifySchema::ARGNAME])) {
