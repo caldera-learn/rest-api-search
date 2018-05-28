@@ -20,8 +20,8 @@ interface FiltersPreWPQuery
 	 *
 	 * @uses "posts_pre_query"
 	 *
-     * @param array|null $postsOrNull Array of posts or null.
-     * @param WP_Query $query Instance of the query.
+	 * @param array|null $postsOrNull Array of posts or null.
+	 * @param WP_Query $query Instance of the query.
 	 *
 	 * @return array Returns an array of WP_Post objects.
 	 */
@@ -58,8 +58,8 @@ interface FiltersPreWPQuery
 
 	/**
 	 * Create the array of posts to return
-     *
-     * @param WP_Query $query Instance of the query.
+	 *
+	 * @param WP_Query $query Instance of the query.
 	 *
 	 * @return \WP_Post[]
 	 */

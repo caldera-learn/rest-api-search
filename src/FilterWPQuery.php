@@ -48,13 +48,13 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 * @uses "posts_pre_query"
 	 *
 	 * @param array|null $postsOrNull Array of posts or null.
-     * @param WP_Query $query Instance of the query.
+	 * @param WP_Query $query Instance of the query.
 	 *
 	 * @return array Returns an array of WP_Post objects.
 	 */
 	public static function filterPreQuery($postsOrNull, WP_Query $query)
 	{
-		if ( ! static::shouldFilter($postsOrNull)) {
+		if (! static::shouldFilter($postsOrNull)) {
 			return $postsOrNull;
 		}
 
@@ -64,7 +64,7 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function shouldFilter($postsOrNull): bool
 	{
-		if ( ! is_null($postsOrNull)) {
+		if (! is_null($postsOrNull)) {
 			return false;
 		}
 
