@@ -3,9 +3,9 @@
 
 namespace CalderaLearn\RestSearch\Features;
 
-use CalderaLearn\RestSearch\ContentGetter\ContentGetterContract;
 use CalderaLearn\RestSearch\FilterQueryArgs;
 use CalderaLearn\RestSearch\FilterSchema;
+use CalderaLearn\RestSearch\ModifyQueryArgsContract;
 use CalderaLearn\RestSearch\ModifySchemaContract;
 
 class Factory
@@ -18,9 +18,8 @@ class Factory
 	 * @param array $postTypesToSupport
 	 * @return Search
 	 */
-	public static function search(array $argumentsToAdd, array $postTypesToSupport)
+	public static function searchFromArguments(array $argumentsToAdd, array $postTypesToSupport)
 	{
-
 		foreach ($argumentsToAdd as $argumentName => $argument) {
 			$schemaModify = new class( $postTypesToSupport ) extends FilterSchema {
 				/**
@@ -87,7 +86,17 @@ class Factory
 
 			$schemaModify->addArgument($argumentName, $argument['schema']);
 			$queryModify->addArgument($argumentName, $argument['default']);
-			return new Search($queryModify, $schemaModify);
+			return self::search($queryModify, $schemaModify);
 		}
+	}
+
+	/**
+	 * @param ModifyQueryArgsContract $queryModify
+	 * @param ModifySchemaContract $schemaModify
+	 * @return Search
+	 */
+	public static function search(ModifyQueryArgsContract$queryModify, ModifySchemaContract $schemaModify): Search
+	{
+		return new Search($queryModify, $schemaModify);
 	}
 }
