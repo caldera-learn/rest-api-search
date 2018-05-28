@@ -22,7 +22,7 @@ include_once __DIR__ .'/vendor/autoload.php';
  * Launch the plugin.
  */
 add_action( 'init', function(){
-	FilterWPQuery::init( new PostsGenerator() );
+	FilterWPQuery::setContentGetter( new PostsGenerator() );
 
 	( new Hooks() )->addHooks();
 });

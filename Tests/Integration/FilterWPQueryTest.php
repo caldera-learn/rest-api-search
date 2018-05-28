@@ -82,7 +82,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	public function testGetPosts()
 	{
 		// Initialize by loading the implementation.
-		FilterWPQuery::init(new PostsGenerator());
+		FilterWPQuery::setContentGetter(new PostsGenerator());
 
 		//Get the mock posts
 		$query   = new WP_Query();
@@ -100,7 +100,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	public function testGetPostsArePosts()
 	{
 		// Initialize by loading the implementation.
-		FilterWPQuery::init(new PostsGenerator());
+		FilterWPQuery::setContentGetter(new PostsGenerator());
 
 		//Get the mock posts
 		$query   = new WP_Query();
@@ -129,7 +129,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		// Set up the test.
 		$numberOfPosts = 5;
 		$query         = new WP_Query(['posts_per_page' => $numberOfPosts]);
-		FilterWPQuery::init(new PostsGenerator());
+		FilterWPQuery::setContentGetter(new PostsGenerator());
 
 		// Mock that it's a RESTful request.
 		Monkey\Functions\expect('did_action')->with('rest_api_init')->andReturn(1);
@@ -151,7 +151,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 	/**
 	 * Test that it filters the query with a different implementation.
 	 *
-	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::init()
+	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::setContentGetter()
 	 * @covers \CalderaLearn\RestSearch\FilterWPQuery::getPosts()
 	 */
 	public function testFilteringWithADifferentImplementation()
@@ -159,7 +159,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 		// Set up the test.
 		$numberOfPosts = 3;
 		$query         = new WP_Query(['posts_per_page' => $numberOfPosts]);
-		FilterWPQuery::init(new CreatePostsImplementation());
+		FilterWPQuery::setContentGetter(new CreatePostsImplementation());
 
 		// Mock that it's a RESTful request.
 		Monkey\Functions\expect('did_action')->with('rest_api_init')->andReturn(1);
@@ -191,7 +191,7 @@ class FilterWPQueryTest extends IntegrationTestCase
 
 		//Setup filter
 		FilterWPQuery::addFilter();
-		FilterWPQuery::init(new PostsGenerator());
+		FilterWPQuery::setContentGetter(new PostsGenerator());
 
 		// Process the REST request.
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');
