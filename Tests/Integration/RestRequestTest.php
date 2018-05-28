@@ -33,7 +33,7 @@ class RestRequestTest extends RestAPITestCase
 
 		// Setup filter
 		FilterWPQuery::addFilter();
-		FilterWPQuery::init(new PostsGenerator());
+		FilterWPQuery::setContentGetter(new PostsGenerator());
 
 		//Create a request
 		$request = new \WP_REST_Request('GET', '/wp/v2/posts');

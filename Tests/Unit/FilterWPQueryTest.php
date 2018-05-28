@@ -53,8 +53,12 @@ class FilterWPQueryTest extends TestCase
 		// Set up the mocks.
 		$postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
 		$postsGeneratorMock->shouldReceive('getContent')->andReturn([]);
-		FilterWPQuery::init($postsGeneratorMock);
+		FilterWPQuery::setContentGetter($postsGeneratorMock);
 		$wpQueryMock = Mockery::mock('WP_Query');
+
+		//Add a mock WP_Rest_Request to prevent errors
+		$wpRestRequestMock = Mockery::mock('WP_REST_Request');
+		FilterWPQuery::captureRequest(null, null, $wpRestRequestMock);
 
 		//Get the mock posts
 		$results = FilterWPQuery::getPosts($wpQueryMock);
@@ -71,12 +75,16 @@ class FilterWPQueryTest extends TestCase
 	{
 		// Set up the mocks.
 		$postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
-		FilterWPQuery::init($postsGeneratorMock);
+		FilterWPQuery::setContentGetter($postsGeneratorMock);
 		$postsGeneratorMock->shouldReceive('getContent')
 			->once()
 			->andReturnUsing([$this, 'mockImplementationCallback']);
 		$wpQueryMock        = Mockery::mock('WP_Query');
 		$wpQueryMock->query = ['posts_per_page' => 4];
+
+		//Add a mock WP_Rest_Request to prevent errors
+		$wpRestRequestMock = Mockery::mock('WP_REST_Request');
+		FilterWPQuery::captureRequest(null, null, $wpRestRequestMock);
 
 		//Get the mock posts
 		$results = FilterWPQuery::getPosts($wpQueryMock);
@@ -120,13 +128,15 @@ class FilterWPQueryTest extends TestCase
 			->with('rest_api_init')
 			->andReturn(1);
 		$postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
-		FilterWPQuery::init($postsGeneratorMock);
+		FilterWPQuery::setContentGetter($postsGeneratorMock);
 		$postsGeneratorMock->shouldReceive('getContent')
 			->once()
 			->andReturnUsing([$this, 'mockImplementationCallback']);
 		$wpQueryMock        = Mockery::mock('WP_Query');
 		$wpQueryMock->query = ['posts_per_page' => 4];
 
+		$wpRestRequestMock = Mockery::mock('WP_REST_Request');
+		FilterWPQuery::captureRequest(null, null, $wpRestRequestMock);
 		//Get the results from the callback
 		$results = FilterWPQuery::filterPreQuery(null, $wpQueryMock);
 
@@ -164,7 +174,7 @@ class FilterWPQueryTest extends TestCase
 		// Set up the mocks.
 		Monkey\Functions\expect('did_action')->with('rest_api_init')->never();
 		$postsGeneratorMock = Mockery::mock(ContentGetterContract::class);
-		FilterWPQuery::init($postsGeneratorMock);
+		FilterWPQuery::setContentGetter($postsGeneratorMock);
 		$postsGeneratorMock->shouldNotReceive('getContent');
 		$wpQueryMock        = Mockery::mock('WP_Query');
 		$wpQueryMock->query = ['posts_per_page' => 4];

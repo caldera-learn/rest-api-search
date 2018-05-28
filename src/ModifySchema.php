@@ -7,11 +7,9 @@ namespace CalderaLearn\RestSearch;
  * Class ModifySchema
  *
  * Modifies the REST API route schema so it has an argument "post_type"
- *
- *
- * @package ExamplePlugin
+
  */
-class ModifySchema
+class ModifySchema extends FilterSchema
 {
 	use UsesPreparedPostTypes;
 
@@ -20,20 +18,12 @@ class ModifySchema
 	 */
 	const ARGNAME = 'post_type';
 
-	/**
-	 * Add post_type to schema
-	 *
-	 * @uses ""rest_{$postType}_collection_params" action
-	 *
-	 * @param array $query_params JSON Schema-formatted collection parameters.
-	 * @param \WP_Post_Type $post_type Post type object.
-	 *
-	 * @return array
-	 */
-	public function filterSchema($query_params, $post_type)
+
+	/* @inheritdoc */
+	public function getAdditionalSchemaArguments(): array
 	{
-		if ($this->shouldFilter($post_type)) {
-			$query_params[self::ARGNAME] = [
+		return [
+			self::ARGNAME => [
 				[
 					'default' => PostType::RESTBASE,
 					'description' => __('Post type(s) for search query'),
@@ -45,20 +35,15 @@ class ModifySchema
 							'type' => 'string',
 						],
 				]
-			];
-		}
-
-		return $query_params;
+			]
+		];
 	}
 
-	/**
-	 * Check if this post type's schema should be filtered
-	 *
-	 * @param \WP_Post_Type $WP_Post_Type
-	 * @return bool
-	 */
-	public function shouldFilter(\WP_Post_Type $WP_Post_Type): bool
+
+
+	/* @inheritdoc */
+	public function shouldFilter(string $postTypeSlug): bool
 	{
-		return PostType::SLUG === $WP_Post_Type->name;
+		return PostType::SLUG === $postTypeSlug;
 	}
 }

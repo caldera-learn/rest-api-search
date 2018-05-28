@@ -15,6 +15,7 @@
 namespace CalderaLearn\RestSearch;
 
 use CalderaLearn\RestSearch\ContentGetter\PostsGenerator;
+use CalderaLearn\RestSearch\Features\Factory;
 
 include_once __DIR__ .'/vendor/autoload.php';
 
@@ -22,7 +23,9 @@ include_once __DIR__ .'/vendor/autoload.php';
  * Launch the plugin.
  */
 add_action( 'init', function(){
-	FilterWPQuery::init( new PostsGenerator() );
 
+	FilterWPQuery::setContentGetter( new PostsGenerator() );
+	$postTypes = new PreparedPostTypes( get_post_types([], 'objects') );
+    Factory::search( new ModifyQueryArgs($postTypes), new ModifySchema($postTypes ));
 	( new Hooks() )->addHooks();
 });

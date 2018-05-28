@@ -22,6 +22,13 @@ class FilterWPQuery implements FiltersPreWPQuery
 	protected static $contentGetter;
 
 	/**
+	 * Current REST request
+	 *
+	 * @var \WP_REST_Request
+	 */
+	protected static $request;
+
+	/**
 	 * Priority for filter
 	 *
 	 * @var int
@@ -29,15 +36,23 @@ class FilterWPQuery implements FiltersPreWPQuery
 	protected static $filterPriority = 10;
 
 	/**
-	 * Initialize the search filter by binding a specific content getter implementation.
+	 * Get or set search filter by binding a specific content getter implementation.
 	 *
 	 * @param ContentGetterContract $contentGetter Instance of the implementation.
 	 *
 	 * @return void
 	 */
-	public static function init(ContentGetterContract $contentGetter)
+	public static function setContentGetter(ContentGetterContract $contentGetter)
 	{
 		static::$contentGetter = $contentGetter;
+	}
+
+	/**
+	 * @return ContentGetterContract
+	 */
+	public static function getContentGetter()
+	{
+		return static::$contentGetter;
 	}
 
 	/**
@@ -84,12 +99,14 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function addFilter(): bool
 	{
+		add_filter('rest_pre_serve_request', [FilterWPQuery::class, 'captureRequest' ]);
 		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority, 2);
 	}
 
 	/** @inheritdoc */
 	public static function removeFilter(): bool
 	{
+		remove_filter('rest_pre_serve_request', [FilterWPQuery::class, 'captureRequest' ]);
 		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
@@ -99,9 +116,25 @@ class FilterWPQuery implements FiltersPreWPQuery
 		return static::$filterPriority;
 	}
 
+	/**
+	 * At "rest_pre_serve_request" get request object and store for later
+	 *
+	 * @param null|\WP_REST_Response $return
+	 * @param null|\WP_REST_Response$result
+	 * @param \WP_REST_Request $request
+	 * @return null|\WP_REST_Response
+	 */
+	public static function captureRequest($return, $result, $request)
+	{
+		static::$request = $request;
+		return $return;
+	}
+
 	/** @inheritdoc */
 	public static function getPosts(WP_Query $query): array
 	{
-		return static::$contentGetter->getContent($query);
+
+		$request = is_object(static::$request) ? static::$request : new \WP_REST_Request();
+		return static::$contentGetter->getContent($query, $request);
 	}
 }
