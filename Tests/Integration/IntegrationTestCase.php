@@ -2,6 +2,7 @@
 
 namespace CalderaLearn\RestSearch\Tests\Integration;
 
+use Brain\Monkey;
 use Mockery;
 
 /**
@@ -14,11 +15,20 @@ use Mockery;
 abstract class IntegrationTestCase extends \WP_UnitTestCase
 {
 	/**
+	 * Prepares the test environment before each test.
+	 */
+	public function setUp()
+	{
+		parent::setUp();
+		Monkey\setUp();
+	}
+
+	/**
 	 * Cleans up the test environment after each test.
 	 */
 	public function tearDown()
 	{
-		Mockery::close();
+		Monkey\tearDown();
 		parent::tearDown();
 	}
 }
