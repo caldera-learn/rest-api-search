@@ -7,11 +7,9 @@ namespace CalderaLearn\RestSearch;
  * Class ModifySchema
  *
  * Modifies the REST API route schema so it has an argument "post_type"
- *
- *
- * @package ExamplePlugin
+
  */
-class ModifySchema implements ModifySchemaContract
+class ModifySchema extends FilterSchema
 {
 	use UsesPreparedPostTypes;
 
@@ -41,19 +39,11 @@ class ModifySchema implements ModifySchemaContract
 		];
 	}
 
-	/* @inheritdoc */
-	public function filterSchema($query_params, $post_type)
-	{
-		if ($this->shouldFilter($post_type)) {
-			$query_params = array_merge($this->getArguments(), $query_params);
-		}
 
-		return $query_params;
-	}
 
 	/* @inheritdoc */
-	public function shouldFilter(\WP_Post_Type $WP_Post_Type): bool
+	public function shouldFilter(string $postTypeSlug): bool
 	{
-		return PostType::SLUG === $WP_Post_Type->name;
+		return PostType::SLUG === $postTypeSlug;
 	}
 }

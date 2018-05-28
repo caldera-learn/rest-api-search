@@ -10,44 +10,34 @@ namespace CalderaLearn\RestSearch;
  *
  * @package ExamplePlugin
  */
-class ModifyQueryArgs implements ModifyQueryArgsContract
+class ModifyQueryArgs extends FilterQueryArgs
 {
-	use UsesPreparedPostTypes;
-	/**
-	 * @var \WP_REST_Request
-	 */
-	protected $request;
+
+
 
 	/** @inheritdoc */
 	public function getAdditionalQueryArguments() :array
 	{
 		return [
-			'post_type' => $this->restBasesToPostTypeSlugs($this->request[ModifySchema::ARGNAME])
+			'post_type' => $this->restBasesToPostTypeSlugs($this->getRequest()[ModifySchema::ARGNAME])
 		];
 	}
 
-    /** @inheritdoc */
-    public function filterQueryArgs($args, $request)
+	/** @inheritdoc */
+	public function filterQueryArgs($args, $request)
 	{
-		if ($this->shouldFilter($request)) {
-			$this->request = $request;
+		if ($this->shouldFilter($args['post_type'])) {
+			$this->setRequest($request);
 			add_filter('posts_pre_query', [FilterWPQuery::class, 'posts_pre_query'], 10, 2);
 			$args = array_merge($this->getAdditionalQueryArguments(), $args);
 		}
 		return $args;
 	}
 
-    /** @inheritdoc */
-    public function shouldFilter(\WP_REST_Request $request): bool
+	/** @inheritdoc */
+	public function shouldFilter(string $postTypeSlug): bool
 	{
-		$attributes = $request->get_attributes();
-		if (isset($attributes['args'][ModifySchema::ARGNAME])) {
-			if ($request->get_param(ModifySchema::ARGNAME)) {
-				return true;
-			}
-		}
-
-		return false;
+		return 'post' === $postTypeSlug;
 	}
 
 	/**
