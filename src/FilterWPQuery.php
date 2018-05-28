@@ -21,6 +21,13 @@ class FilterWPQuery implements FiltersPreWPQuery
 	 */
 	protected static $contentGetter;
 
+    /**
+     * Current REST request
+     *
+     * @var \WP_REST_Request
+     */
+	protected static $request;
+
 	/**
 	 * Priority for filter
 	 *
@@ -84,13 +91,15 @@ class FilterWPQuery implements FiltersPreWPQuery
 	/** @inheritdoc */
 	public static function addFilter(): bool
 	{
+        add_filter( 'rest_pre_serve_request', [FilterWPQuery::class, 'captureRequest' ] );
 		return add_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority, 2);
 	}
 
 	/** @inheritdoc */
 	public static function removeFilter(): bool
 	{
-		return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
+        remove_filter( 'rest_pre_serve_request', [FilterWPQuery::class, 'captureRequest' ] );
+        return remove_filter('posts_pre_query', [FilterWPQuery::class, 'filterPreQuery'], static::$filterPriority);
 	}
 
 	/** @inheritdoc */
@@ -99,9 +108,17 @@ class FilterWPQuery implements FiltersPreWPQuery
 		return static::$filterPriority;
 	}
 
+	public static function captureRequest( $return, $result, $request )
+    {
+        static::$request = $request;
+        return $return;
+    }
+
 	/** @inheritdoc */
 	public static function getPosts(WP_Query $query): array
 	{
-		return static::$contentGetter->getContent($query);
+
+	    $request = is_object( static::$request ) ? static::$request ? new \WP_REST_Request();
+		return static::$contentGetter->getContent($query,$request);
 	}
 }
