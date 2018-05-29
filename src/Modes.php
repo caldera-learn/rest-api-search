@@ -6,8 +6,18 @@ namespace CalderaLearn\RestSearch;
 use CalderaLearn\RestSearch\ContentGetter\ContentGetterContract;
 use CalderaLearn\RestSearch\ContentGetter\PostsGenerator;
 
+/**
+ * Class Modes
+ *
+ * Controls which ContentGetter is used based on a REST API param "mode"
+ */
 class Modes
 {
+
+	/**
+	 * The name of the filter this class uses to control search mode
+	 */
+	const FILTER_NAME = 'caldera_learn_rest_search_get_mode';
 
 	/**
 	 * Controls loading of content generator based on mode
@@ -18,7 +28,12 @@ class Modes
 	 */
 	public function controlMode($unused, \WP_REST_Request $request) : ContentGetterContract
 	{
-		switch ($request->get_param('mode')) {
+		$mode = $request->get_param('mode');
+		$contentGetter = apply_filters(self::FILTER_NAME, null, $mode);
+		if (is_a($contentGetter, ContentGetterContract::class)) {
+			return $contentGetter;
+		}
+		switch ($mode) {
 			default:
 				return $this->factory('');
 			break;
