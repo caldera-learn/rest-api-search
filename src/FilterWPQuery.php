@@ -135,6 +135,15 @@ class FilterWPQuery implements FiltersPreWPQuery
 	{
 
 		$request = is_object(static::$request) ? static::$request : new \WP_REST_Request();
+        /**
+         * Runs right before we get the results
+         *
+         * Use to change the contentGetter based on current request
+         *
+         * @param \WP_Query $query
+         * @param \WP_REST_Request $request
+         */
+		do_action( 'caldera_learn_rest_search_pre_get_posts', $query, $request );
 		return static::$contentGetter->getContent($query, $request);
 	}
 }
