@@ -1,6 +1,6 @@
 <?php
 
-namespace CalderaLearn\RestSearch\Tests\Integration;
+namespace calderawp\CalderaForms\Admin\Tests\Integration;
 
 use Brain\Monkey;
 use Mockery;

@@ -1,6 +1,6 @@
 <?php
 
-namespace CalderaLearn\RestSearch\Tests\Unit;
+namespace calderawp\CalderaForms\Admin\Tests\Unit;
 
 use Brain\Monkey;
 //Import PHP unit test case.
@@ -44,10 +44,17 @@ abstract class TestCase extends FrameworkTestCase
 		// Common internationalization functions.
 		Monkey\Functions\stubs(array(
 			'__',
-			'esc_html__',
 			'esc_html_x',
+			'esc_html_e',
 			'esc_attr_x',
+			'esc_attr_e',
 		));
+
+        // Common escape functions.
+        Monkey\Functions\stubs(array(
+            'esc_html__',
+            'esc_attr',
+        ));
 	}
 	//phpcs:enable
 }

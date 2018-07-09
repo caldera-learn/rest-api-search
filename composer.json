@@ -1,8 +1,9 @@
 {
-    "name": "caldera-learn/rest-api-search",
+    "name": "calderawp/caldera-forms-admin",
     "description": "Example code for a plugin that modifies default post routes to improve search",
     "type": "wordpress-plugin",
     "license": "GPL-2.0",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Josh Pollock",
@@ -10,14 +11,20 @@
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^5.6|^7.0",
+        "calderawp/caldera-interop": "dev-vast-simplify"
     },
     "autoload": {
         "psr-4": {
-            "CalderaLearn\\RestSearch\\": "src"
-        },
-        "files": ["src/functions.php"]
+            "calderawp\\CalderaForms\\Admin\\": "src"
+        }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/CalderaWP/caldera-interop"
+        }
+    ],
     "scripts" : {
         "tests" : "composer fixes && composer sniffs && composer unit-tests && composer wp-tests",
         "unit-tests": "phpunit --testsuite=unit",
@@ -31,7 +38,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CalderaLearn\\RestSearch\\Tests\\": "Tests/"
+            "calderawp\\CalderaForms\\Admin\\Tests\\": "Tests/"
         }
     },
     "require-dev": {
@@ -40,6 +47,7 @@
         "mockery/mockery": ">=0.9 <2",
         "phpunit/phpunit": "~5.7.9",
         "squizlabs/php_codesniffer": "^3.2",
-        "jakub-onderka/php-parallel-lint": "^1.0"
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "johnpbloch/wordpress" : "*"
     }
 }
