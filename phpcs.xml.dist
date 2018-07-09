@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--Largely Sourced Form https://gist.github.com/gsherwood/9d22f634c57f990a7c64-->
-<ruleset name="CalderaLearn">
+<ruleset name="CalderaWP">
     <description>PSR2 with tabs instead of spaces.</description>
     <arg name="tab-width" value="4"/>
     <rule ref="PSR2">

@@ -1,0 +1,36 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "brand": {
+          "logo": "./globe.svg",
+          "title": "Caldera Components library",
+          "description": "UI components for Caldera Forms admin, Caldera Forms 2.0 front-end",
+          "repository": "https://github.com/calderawp/caldera-components",
+          "site": "http://calderalabs.org/caldera-components/",
+          "author": "http://calderalabs.org",
+          "image": "https://calderaforms.com/wp-content/themes/caldera-forms-dot-com/img/caldera-forms-logo.svg"
+        },
+        "manual": {
+          "index": "./manual/index.md",
+          "globalIndex": true,
+          "files": [
+            "./README.md",
+            "./manual/components.md",
+            "./manual/factories.md",
+            "./manual/testing.md",
+            "./manual/validation.md",
+            "./manual/conditional-logic.md"
+          ]
+        }
+      }
+    },
+    {
+      "name": "esdoc-jsx-plugin", "option": {"enable": true}
+    },
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}}
+  ]
+}

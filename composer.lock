@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b738664726fe79a232c1389e687264a1",
+    "content-hash": "338ea337ed9f2e3b5d73554510967a89",
     "packages": [
         {
             "name": "calderawp/caldera-containers",

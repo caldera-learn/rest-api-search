@@ -5,7 +5,7 @@ namespace calderawp\CalderaForms\Admin\Menu;
 
 use calderawp\CalderaForms\Admin\Contracts\MenuPage;
 
-abstract class Page implements MenuPage
+class Page implements MenuPage
 {
 
 	/** @var string */
@@ -53,7 +53,7 @@ abstract class Page implements MenuPage
 	/** @inheritdoc */
 	public function render()
 	{
-		return sprintf('<div id="%s"></div>', esc_attr($this->getElementId()));
+        printf('<div id="%s"></div>', esc_attr($this->getElementId()));
 	}
 
 	/** @inheritdoc */

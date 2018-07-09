@@ -11,13 +11,13 @@ services:
       ABSPATH: /usr/src/wordpress/
     volumes:
       - wordpress:/var/www/html
-      - .:/var/www/html/wp-content/plugins/rest-api-search
+      - .:/var/www/html/wp-content/plugins/caldera-forms-admin
 
   cli:
     image: wordpress:cli
     volumes:
       - wordpress:/var/www/html
-      - .:/var/www/html/wp-content/plugins/rest-api-search
+      - .:/var/www/html/wp-content/plugins/caldera-forms-admin
 
   mysql:
     image: mysql:5.7
