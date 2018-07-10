@@ -1,11 +1,38 @@
 {
-  "name": "rest-api-search",
+  "name": "caldera-forms-admin-",
   "version": "0.1.0",
-  "main": "Gruntfile.js",
-  "author": "YOUR NAME HERE",
+  "private": true,
+  "dependencies": {
+    "@caldera-labs/api-client": "^0.3.0",
+    "@caldera-labs/components": "^1.5.0",
+    "@caldera-labs/processor-ui": "^0.5.0",
+    "@caldera-labs/state": "^0.7.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-wp-scripts": "0.2.0"
+  },
+  "scripts": {
+    "start": "react-wp-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "test:once": "CI=true react-scripts test --env=jsdom",
+    "test:coverage": "npm test -- --coverage",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "lint": "eslint src/components/**"
+  },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-wp-i18n": "~0.5.0",
-    "grunt-wp-readme-to-markdown": "~1.0.0"
+    "coveralls": "^3.0.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-jsx-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-react": "^7.9.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.1",
+    "react-test-renderer": "^16.4.1"
   }
 }

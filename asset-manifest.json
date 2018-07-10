@@ -1,0 +1,5 @@
+{
+  "http://localhost:3000/main.js": "http://localhost:3000/static/js/bundle.js",
+  "http://localhost:3000/main.js.map": "http://localhost:3000/static/js/bundle.js.map",
+  "http://localhost:3000/static/media/logo.svg": "http://localhost:3000/static/media/logo.83748054.svg"
+}
