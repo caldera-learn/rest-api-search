@@ -36,6 +36,7 @@
         "wp-install": "bash ./bin/install-docker.sh",
         "wp-start": "docker-compose up -d",
         "wp-tests": "docker-compose run --rm wordpress_phpunit phpunit --configuration phpunit-integration.xml.dist",
+        "wp-activate": "bash ./bin/activate-plugins.sh",
         "phpunit-v": "phpunit --version",
         "sniffs" : "phpcs src/ && phpcs Tests/",
         "fixes" : "phpcbf src/ && phpcbf Tests/",
