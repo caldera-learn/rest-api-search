@@ -34,17 +34,15 @@ class ModifySchema
 	{
 		if ($this->shouldFilter($post_type)) {
 			$query_params[self::ARGNAME] = [
-				[
-					'default' => PostType::RESTBASE,
-					'description' => __('Post type(s) for search query'),
-					'type' => 'array',
-					//Limit to public post types and allow query by rest base
-					'items' =>
-						[
-							'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
-							'type' => 'string',
-						],
-				]
+				'default' => PostType::RESTBASE,
+				'description' => __('Post type(s) for search query'),
+				'type' => 'array',
+				//Limit to public post types and allow query by rest base
+				'items' =>
+					[
+						'enum' => $this->preparedPostTypes->getPostTypeRestBases(),
+						'type' => 'string',
+					],
 			];
 		}
 
